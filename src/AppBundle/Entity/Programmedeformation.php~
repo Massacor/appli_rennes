@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Programmedeformation
+ *
+ * @ORM\Table(name="ProgrammeDeFormation")
+ * @ORM\Entity
+ */
+class Programmedeformation
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="intitule", type="string", length=256, nullable=false)
+     */
+    private $intitule;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectif", type="string", length=256, nullable=false)
+     */
+    private $objectif;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
