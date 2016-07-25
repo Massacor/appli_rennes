@@ -9,9 +9,13 @@ $secondary_color: rgb(237,151,103)
 $primary_font: Gotham, sans-serif
 $secondary_font: Krafstoff, sans-serif
 
+@import font-face
+
+@include font-face("Gotham", "../fonts/GOTHAM/GOTHAM-LIGTH_0")
 
 // - - - - - - - Bootstrap includes
 @import bootstrap-custom
+
 
 
 
@@ -22,5 +26,9 @@ body
 
 .sidebar 
 	background-color: $primary_color
+	height: 1000px
+
+.main-part 
+	background-color: $secondary_color
 	height: 1000px
 

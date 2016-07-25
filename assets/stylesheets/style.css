@@ -1,4 +1,9 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "Gotham";
+  src: url("../fonts/GOTHAM/GOTHAM-LIGTH_0.eot?") format("eot"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff2") format("woff2"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff") format("woff"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.ttf") format("truetype"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.svg#Gotham") format("svg");
+}
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -5870,5 +5875,10 @@ body {
 
 .sidebar {
   background-color: #24888f;
+  height: 1000px;
+}
+
+.main-part {
+  background-color: #ed9767;
   height: 1000px;
 }
