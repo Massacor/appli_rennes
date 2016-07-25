@@ -1,4 +1,4 @@
-![](assets/stylehseets/CSS_md/RENNES_PNG.png)
+![](assets/images/RENNES_PNG.png)
 
 #Application FACE Rennes
 
