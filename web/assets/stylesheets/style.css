@@ -1,4 +1,9 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "Gotham";
+  src: url("../fonts/GOTHAM/GOTHAM-LIGTH_0.eot?") format("eot"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff2") format("woff2"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff") format("woff"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.ttf") format("truetype"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.svg#Gotham") format("svg");
+}
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -5862,16 +5867,6 @@ a.thumbnail.active {
   .hidden-print {
     display: none !important;
   }
-}
-
-@font-face {
-  font-family: "Gotham";
-  src: url("../fonts/GOTHAM/GOTHAM-LIGTH_0.eot?") format("eot"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff2") format("woff2"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff") format("woff"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.ttf") format("truetype"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.svg#Gotham") format("svg");
-}
-
-@font-face {
-  font-family: "Kraftstoff";
-  src: url("../fontsKraftstoff-Regular.eot?") format("eot"), url("../fontsKraftstoff-Regular.woff2") format("woff2"), url("../fontsKraftstoff-Regular.woff") format("woff"), url("../fontsKraftstoff-Regular.ttf") format("truetype"), url("../fontsKraftstoff-Regular.svg#Kraftstoff") format("svg");
 }
 
 body {

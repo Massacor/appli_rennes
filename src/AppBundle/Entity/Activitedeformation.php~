@@ -1,0 +1,82 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Activitedeformation
+ *
+ * @ORM\Table(name="ActiviteDeFormation")
+ * @ORM\Entity
+ */
+class Activitedeformation
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="intitule", type="string", length=256, nullable=false)
+     */
+    private $intitule;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectifFormateur", type="string", length=256, nullable=false)
+     */
+    private $objectifformateur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectifApprenant", type="string", length=256, nullable=false)
+     */
+    private $objectifapprenant;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="temps", type="integer", nullable=false)
+     */
+    private $temps;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="demarche", type="boolean", nullable=false)
+     */
+    private $demarche;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="evaluation", type="string", length=256, nullable=false)
+     */
+    private $evaluation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+
