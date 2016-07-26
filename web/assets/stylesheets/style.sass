@@ -9,26 +9,48 @@ $secondary_color: rgb(237,151,103)
 $primary_font: Gotham, sans-serif
 $secondary_font: Krafstoff, sans-serif
 
+
+
+// Here is the mixin code for the font-face in sass.
 @import font-face
 
 @include font-face("Gotham", "../fonts/GOTHAM/GOTHAM-LIGTH_0")
-
-// - - - - - - - Bootstrap includes
-@import bootstrap-custom
-
 
 
 
 
 // My code start here
+* 
+	padding: 0 !important
+
 body 
 	margin: 0
 
+
 .sidebar 
-	background-color: $primary_color
-	height: 1000px
+	background-color: black
+	height: 653px
+	color: white
+
+
+
+p.welcome
+	font-size: 1.25em
+	text-align: center
+	margin-top: 10%
+
+
+
 
 .main-part 
 	background-color: $secondary_color
-	height: 1000px
+	height: 653px
 
+
+
+
+
+
+
+// - - - - - - - Bootstrap includes
+@import bootstrap-custom

@@ -4,6 +4,31 @@
   src: url("../fonts/GOTHAM/GOTHAM-LIGTH_0.eot?") format("eot"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff2") format("woff2"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.woff") format("woff"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.ttf") format("truetype"), url("../fonts/GOTHAM/GOTHAM-LIGTH_0.svg#Gotham") format("svg");
 }
 
+* {
+  padding: 0 !important;
+}
+
+body {
+  margin: 0;
+}
+
+.sidebar {
+  background-color: black;
+  height: 653px;
+  color: white;
+}
+
+p.welcome {
+  font-size: 1.25em;
+  text-align: center;
+  margin-top: 10%;
+}
+
+.main-part {
+  background-color: #ed9767;
+  height: 653px;
+}
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -5867,18 +5892,4 @@ a.thumbnail.active {
   .hidden-print {
     display: none !important;
   }
-}
-
-body {
-  margin: 0;
-}
-
-.sidebar {
-  background-color: #24888f;
-  height: 1000px;
-}
-
-.main-part {
-  background-color: #ed9767;
-  height: 1000px;
 }
