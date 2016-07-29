@@ -280,4 +280,33 @@ class Activitedeformation
     {
         return $this->id;
     }
+    /**
+     * @var integer
+     */
+    private $sequenceid;
+
+
+    /**
+     * Set sequenceid
+     *
+     * @param integer $sequenceid
+     *
+     * @return Activitedeformation
+     */
+    public function setSequenceid($sequenceid)
+    {
+        $this->sequenceid = $sequenceid;
+
+        return $this;
+    }
+
+    /**
+     * Get sequenceid
+     *
+     * @return integer
+     */
+    public function getSequenceid()
+    {
+        return $this->sequenceid;
+    }
 }

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Displaying a program : {{ intitule }}</h1>
+
+    <h3>Liste des modules </h3>
+	{% for module in modules %}
+		<li>{{ module.code }} : {{ module.intitule }}</li>
+	{% endfor %}
+{% endblock %}

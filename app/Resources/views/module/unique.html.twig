@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Displaying a module : {{ number }}</h1>
+    <h1>Displaying a module : {{ intitule }}</h1>
+
+    <h3>Liste des séquences </h3>
+	{% for sequence in sequences %}
+		<li>{{ sequence.code }} : {{ sequence.intitule }}</li>
+	{% endfor %}sequences
 {% endblock %}
