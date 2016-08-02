@@ -1,0 +1,40 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Linkprogrammemodule
+ *
+ * @ORM\Table(name="linkProgrammeModule")
+ * @ORM\Entity
+ */
+class Linkprogrammemodule
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="programmeId", type="integer", nullable=false)
+     */
+    private $programmeid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="moduleId", type="integer", nullable=false)
+     */
+    private $moduleid;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

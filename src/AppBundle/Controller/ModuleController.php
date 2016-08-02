@@ -25,21 +25,13 @@ class ModuleController  extends Controller
     }
 
     /**
-     * @Route("/module/{id}")
-     * Accepts an id or the code of the module.
+     * @Route("/module/select/{id}")
      */
     public function getModule($id)
     {
-        $module = null;
-        if(is_numeric($id)){
         $module = $this->getDoctrine()
             ->getRepository('AppBundle:Moduledeformation')
             ->find($id);
-        }else{
-            $product = $repository->findOneBy(
-                array('code' => $id)
-            );
-        }
 
         if (!$module) {
             throw $this->createNotFoundException(
@@ -47,10 +39,21 @@ class ModuleController  extends Controller
             );
         }
 
+        //Get the related sequences
+        $sequences = $this->getDoctrine()
+            ->getRepository('AppBundle:Sequencedeformation')
+            ->findBy(
+                 array('moduleid' => $module->getId())
+            );
+
         $html = $this->container->get('templating')->render(
             'module/unique.html.twig',
-            array('number' => $module->getIntitule())
+            array('intitule' => $module->getIntitule(),
+                'sequences' => $sequences
+            )
         );
         return new Response($html);
     }
+
+
 }

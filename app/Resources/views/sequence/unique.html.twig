@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Displaying a sequence : {{ number }}</h1>
+    <h3>Liste des activités </h3>
+	{% for activite in activites %}
+		<li>{{ activite.code }} : {{ activite.intitule }}</li>
+	{% endfor %}sequences
+{% endblock %}
