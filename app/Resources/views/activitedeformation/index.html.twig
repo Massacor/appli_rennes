@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Activitedeformation list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sequenceid</th>
+                <th>Intitule</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Objectifformateur</th>
+                <th>Objectifapprenant</th>
+                <th>Temps</th>
+                <th>Demarche</th>
+                <th>Evaluation</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activitedeformation in activitedeformations %}
+            <tr>
+                <td><a href="{{ path('activitedeformation_show', { 'id': activitedeformation.id }) }}">{{ activitedeformation.sequenceid }}</a></td>
+                <td>{{ activitedeformation.intitule }}</td>
+                <td>{{ activitedeformation.code }}</td>
+                <td>{{ activitedeformation.description }}</td>
+                <td>{{ activitedeformation.objectifformateur }}</td>
+                <td>{{ activitedeformation.objectifapprenant }}</td>
+                <td>{{ activitedeformation.temps }}</td>
+                <td>{% if activitedeformation.demarche %}Yes{% else %}No{% endif %}</td>
+                <td>{{ activitedeformation.evaluation }}</td>
+                <td>{{ activitedeformation.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('activitedeformation_show', { 'id': activitedeformation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('activitedeformation_edit', { 'id': activitedeformation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('activitedeformation_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

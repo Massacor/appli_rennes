@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Activitedeformation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Sequenceid</th>
+                <td>{{ activitedeformation.sequenceid }}</td>
+            </tr>
+            <tr>
+                <th>Intitule</th>
+                <td>{{ activitedeformation.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ activitedeformation.code }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ activitedeformation.description }}</td>
+            </tr>
+            <tr>
+                <th>Objectifformateur</th>
+                <td>{{ activitedeformation.objectifformateur }}</td>
+            </tr>
+            <tr>
+                <th>Objectifapprenant</th>
+                <td>{{ activitedeformation.objectifapprenant }}</td>
+            </tr>
+            <tr>
+                <th>Temps</th>
+                <td>{{ activitedeformation.temps }}</td>
+            </tr>
+            <tr>
+                <th>Demarche</th>
+                <td>{% if activitedeformation.demarche %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Evaluation</th>
+                <td>{{ activitedeformation.evaluation }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ activitedeformation.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('activitedeformation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('activitedeformation_edit', { 'id': activitedeformation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

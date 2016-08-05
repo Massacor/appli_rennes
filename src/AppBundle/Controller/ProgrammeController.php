@@ -47,7 +47,7 @@ class ProgrammeController  extends Controller
             );
         
         $modules = array();
-		for($obj in $linksToModules){
+		foreach($linksToModules as $key=>$obj){
 			$toAdd = $this->getDoctrine()
 	            ->getRepository('AppBundle:Moduledeformation')
 	            ->find($obj->getModuleid());	
