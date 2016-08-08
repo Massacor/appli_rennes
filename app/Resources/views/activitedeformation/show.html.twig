@@ -6,7 +6,7 @@
     <table>
         <tbody>
             <tr>
-                <th>Sequenceid</th>
+                <th>Séquence</th>
                 <td>{{ activitedeformation.sequenceid }}</td>
             </tr>
             <tr>
@@ -22,20 +22,20 @@
                 <td>{{ activitedeformation.description }}</td>
             </tr>
             <tr>
-                <th>Objectifformateur</th>
+                <th>Objectif du formateur</th>
                 <td>{{ activitedeformation.objectifformateur }}</td>
             </tr>
             <tr>
-                <th>Objectifapprenant</th>
+                <th>Objectif de l'apprenant</th>
                 <td>{{ activitedeformation.objectifapprenant }}</td>
             </tr>
             <tr>
                 <th>Temps</th>
-                <td>{{ activitedeformation.temps }}</td>
+                <td>{{ activitedeformation.temps }} heure(s)</td>
             </tr>
             <tr>
                 <th>Demarche</th>
-                <td>{% if activitedeformation.demarche %}Yes{% else %}No{% endif %}</td>
+                <td>{% if activitedeformation.demarche %}Inductive{% else %}Déductive{% endif %}</td>
             </tr>
             <tr>
                 <th>Evaluation</th>

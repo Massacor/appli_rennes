@@ -23,6 +23,7 @@ class ActivitedeformationType extends AbstractType
                 'choice_label' => 'code',
                 'choice_value' => 'id',
                 'disabled' => true,
+                'label' => 'Séquence',
             ))
             ->add('intitule')
             ->add('code')
@@ -30,7 +31,12 @@ class ActivitedeformationType extends AbstractType
             ->add('objectifformateur')
             ->add('objectifapprenant')
             ->add('temps')
-            ->add('demarche')
+            ->add('demarche', ChoiceType::class, array(
+                'choices'  => array(
+                    'Inductive' => 1,
+                    'Déductive' => 0,
+                )
+            ))
             ->add('evaluation', ChoiceType::class, array(
                 'choices'  => array(
                     'Auto-Evaluation' => 'auto_eval',
