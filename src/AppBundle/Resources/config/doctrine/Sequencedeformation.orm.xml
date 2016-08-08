@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AppBundle\Entity\Sequencedeformation" table="SequenceDeFormation">
+    <indexes>
+      <index name="moduleId" columns="moduleId"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="code" columns="code"/>
+    </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="moduleid" type="integer" column="moduleId" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
     <field name="intitule" type="string" column="intitule" length="256" nullable="false">
       <options>
         <option name="fixed"/>
@@ -30,5 +31,10 @@
       </options>
     </field>
     <field name="evaluation" type="boolean" column="evaluation" nullable="false"/>
+    <many-to-one field="moduleid" target-entity="Moduledeformation" fetch="LAZY">
+      <join-columns>
+        <join-column name="moduleId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

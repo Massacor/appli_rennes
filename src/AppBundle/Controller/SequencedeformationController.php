@@ -42,12 +42,12 @@ class SequencedeformationController extends Controller
     public function newAction(Request $request)
     {
         $sequencedeformation = new Sequencedeformation();
-        if(isset($_GET['moduleid']))
-            $sequencedeformation->setModuleid($_GET['moduleid']);
+        if(isset($_GET['moduleid'])){
+            $module = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Moduledeformation')->find($_GET['moduleid']);
+            $sequencedeformation->setModuleid($module);
+        }
 
-        $form = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation, array(
-            'entity_manager' => $this->get('doctrine.orm.entity_manager')
-        ));
+        $form = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
 
         $form->handleRequest($request);
 
@@ -94,9 +94,7 @@ class SequencedeformationController extends Controller
     public function editAction(Request $request, Sequencedeformation $sequencedeformation)
     {
         $deleteForm = $this->createDeleteForm($sequencedeformation);
-        $editForm = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation, array(
-            'entity_manager' => $this->get('doctrine.orm.entity_manager')
-        ));
+        $editForm = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
 
         $editForm->handleRequest($request);
 

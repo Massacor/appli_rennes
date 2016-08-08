@@ -43,13 +43,11 @@ class ActivitedeformationController extends Controller
     {
         $activitedeformation = new Activitedeformation();
         if(isset($_GET['sequenceid'])){
-            $activitedeformation->setSequenceid($_GET['sequenceid']);
+            $sequencedeformation = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Sequencedeformation')->find($_GET['sequenceid']);
+            $activitedeformation->setSequenceid($sequencedeformation);
         }
-        $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation, array(
-            'entity_manager' => $this->get('doctrine.orm.entity_manager')
-        ));
+        $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
 
-        $form->get('sequenceid')->setData($activitedeformation->getSequenceid());
         // echo "TOTO : ".$activitedeformation->getSequenceid();
         $form->handleRequest($request);
 
@@ -92,9 +90,7 @@ class ActivitedeformationController extends Controller
     public function editAction(Request $request, Activitedeformation $activitedeformation)
     {
         $deleteForm = $this->createDeleteForm($activitedeformation);
-        $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation, array(
-            'entity_manager' => $this->get('doctrine.orm.entity_manager')
-        ));
+        $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

@@ -4,6 +4,9 @@
     <indexes>
       <index name="sequenceId" columns="sequenceId"/>
     </indexes>
+    <unique-constraints>
+      <unique-constraint name="code" columns="code"/>
+    </unique-constraints>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
@@ -12,7 +15,7 @@
         <option name="fixed"/>
       </options>
     </field>
-    <field name="code" type="string" column="code" length="10" nullable="false">
+    <field name="code" type="string" column="code" length="20" nullable="false">
       <options>
         <option name="fixed"/>
       </options>

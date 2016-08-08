@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
   <entity name="AppBundle\Entity\Linkprogrammemodule" table="linkProgrammeModule">
+    <indexes>
+      <index name="moduleId" columns="moduleId"/>
+      <index name="programmeId" columns="programmeId"/>
+    </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="programmeid" type="integer" column="programmeId" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
-    <field name="moduleid" type="integer" column="moduleId" nullable="false">
-      <options>
-        <option name="unsigned"/>
-      </options>
-    </field>
+    <many-to-one field="programmeid" target-entity="Programmedeformation" fetch="LAZY">
+      <join-columns>
+        <join-column name="programmeId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="moduleid" target-entity="Moduledeformation" fetch="LAZY">
+      <join-columns>
+        <join-column name="moduleId" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
   </entity>
 </doctrine-mapping>

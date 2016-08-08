@@ -22,7 +22,7 @@ class Activitedeformation
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=10, nullable=false)
+     * @ORM\Column(name="code", type="string", length=20, nullable=false)
      */
     private $code;
 

@@ -4,10 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use AppBundle\Form\DataTransformer\SequenceToIdTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ActivitedeformationType extends AbstractType
 {
@@ -18,10 +16,12 @@ class ActivitedeformationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $choices = $this->getSequenceChoiceList($options);
         $builder
-            ->add('sequenceid', ChoiceType::class, array(
-                'choices' => $choices,
+            ->add('sequenceid', EntityType::class, array(
+                'class' => 'AppBundle:Sequencedeformation',
+                'choice_label' => 'code',
+                'choice_value' => 'id',
+                'disabled' => true,
             ))
             ->add('intitule')
             ->add('code')
@@ -44,20 +44,5 @@ class ActivitedeformationType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Activitedeformation'
         ));
-        $resolver->setRequired('entity_manager');
-    }
-
-    /**
-    * Function called for the form generation . Generating the Sequence drop down list.
-    */
-    private function getSequenceChoiceList($options){
-        $em = $options['entity_manager'];
-        $sequences = $em->getRepository('AppBundle:Sequencedeformation')->findAll();
-
-        $res = array();
-        foreach ($sequences as $key => $sequence) {
-            $res[$sequence->getCode()] = $sequence->getId();
-        }
-        return $res; //new ArrayChoiceList($res);
     }
 }
