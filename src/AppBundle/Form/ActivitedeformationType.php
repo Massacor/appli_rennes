@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ActivitedeformationType extends AbstractType
 {
@@ -30,8 +31,16 @@ class ActivitedeformationType extends AbstractType
             ->add('objectifapprenant')
             ->add('temps')
             ->add('demarche')
-            ->add('evaluation')
-        ;
+            ->add('evaluation', ChoiceType::class, array(
+                'choices'  => array(
+                    'Auto-Evaluation' => 'auto_eval',
+                    'Continue' => 'continue',
+                    'Ponctuelle' =>  'ponctuelle',
+                    'Sommative' =>  'sommative',
+                ),
+                'required' => false,
+            ));
+        
 
     }
     
