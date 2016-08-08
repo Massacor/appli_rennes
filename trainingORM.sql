@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 05, 2016 at 01:54 PM
+-- Generation Time: Aug 08, 2016 at 03:53 PM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
--- PHP Version: 5.5.9-1ubuntu4.19
+-- PHP Version: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -40,8 +40,9 @@ CREATE TABLE IF NOT EXISTS `ActiviteDeFormation` (
   `temps` int(11) NOT NULL,
   `demarche` tinyint(4) NOT NULL,
   `evaluation` varchar(256) COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=5 ;
+  PRIMARY KEY (`id`),
+  KEY `sequenceId` (`sequenceId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `ActiviteDeFormation`
@@ -51,7 +52,8 @@ INSERT INTO `ActiviteDeFormation` (`id`, `sequenceId`, `intitule`, `code`, `desc
 (1, 1, 'Petit Déjeuner de bienvenue', 'SOC00-01', 'Petit Déjeuner de bienvenue', 'Découverte des apprenants', 'Découverte de leurs environnement', 1, 0, ''),
 (2, 1, 'Ice Breaker : 3 Vérités et 1 Mensonge', 'SOC00-02', 'Les apprenants doivent à tour de rôle, citer 3 vérités et un mensonge les concernants. Les autres apprenants doivent deviner lequel est faux.\r\n\r\nLe formateur peut participer à l''ice breaker', 'Découverte d''autrui', 'Découverte d''autrui', 1, 0, ''),
 (3, 1, 'Définition d''une charte commune', 'SOC00-03', 'Une charte est à définir lors de la prairie.\r\nCette charte définie par les apprenants doit définir les règles acceptées par tous. \r\n\r\nCertaines thématiques doivent être abordées : \r\n * Horaires\r\n * Retards\r\n * Ranger ses affaires en fin de journée', 'Impliquer les apprenants à leur formation', 'Accepter les règles communes', 1, 2, 'Redaction et impression de la charte'),
-(4, 1, 'Ice Breaker : Tri', 'SOC00-04', 'Les apprenants doivent se ranger à la queue leu leu en fonction : \r\n- De leur taille\r\n- Du nombre de couleurs sur leurs vêtements\r\n- Sur le nombre de réalisations faites sur internet (n''importe quoi tant que leur nom y est référencé)\r\n- Du nombre de pays visité (durée > 1 semaine)\r\n- Du nombre de langages de programmation qu''ils ont déjà utilisé (avant formation)\r\n- Du nombre de langues orales parlées', 'Découverte d''autrui', 'Découverte d''autrui', 1, 0, '');
+(4, 1, 'Ice Breaker : Tri', 'SOC00-04', 'Les apprenants doivent se ranger à la queue leu leu en fonction : \r\n- De leur taille\r\n- Du nombre de couleurs sur leurs vêtements\r\n- Sur le nombre de réalisations faites sur internet (n''importe quoi tant que leur nom y est référencé)\r\n- Du nombre de pays visité (durée > 1 semaine)\r\n- Du nombre de langages de programmation qu''ils ont déjà utilisé (avant formation)\r\n- Du nombre de langues orales parlées', 'Découverte d''autrui', 'Découverte d''autrui', 1, 0, ''),
+(7, 6, 'Installation de Linux', 'LIN00-01', 'Pour alléger le réseau, il est préférable de préparer des clés de boot en amont. Les apprenants découvrent par eux même comment insaller l''OS sur leur système. Et commencent à partager', 'Démystification de l''OS', 'Pratique manuel et débug d''une install d''OS', 4, 0, 'Ponctuelle');
 
 -- --------------------------------------------------------
 
@@ -64,7 +66,9 @@ CREATE TABLE IF NOT EXISTS `linkProgrammeModule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `programmeId` int(11) NOT NULL,
   `moduleId` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `moduleId` (`moduleId`),
+  KEY `programmeId` (`programmeId`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=2 ;
 
 --
@@ -109,7 +113,15 @@ CREATE TABLE IF NOT EXISTS `OutilDeFormation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(256) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `OutilDeFormation`
+--
+
+INSERT INTO `OutilDeFormation` (`id`, `nom`) VALUES
+(1, 'Video Projecteur'),
+(2, 'Paper Board');
 
 -- --------------------------------------------------------
 
@@ -147,15 +159,40 @@ CREATE TABLE IF NOT EXISTS `SequenceDeFormation` (
   `code` varchar(10) COLLATE utf8mb4_bin NOT NULL,
   `objectif` varchar(256) COLLATE utf8mb4_bin NOT NULL,
   `evaluation` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=2 ;
+  PRIMARY KEY (`id`),
+  KEY `moduleId` (`moduleId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `SequenceDeFormation`
 --
 
 INSERT INTO `SequenceDeFormation` (`id`, `moduleId`, `intitule`, `description`, `code`, `objectif`, `evaluation`) VALUES
-(1, 1, 'Identifier les autres aprenants de la formation', 'Cette séquence, essentiellement destinée à la phase de prairie permet aux apprenants à se connaître.\r\n\r\nPermettant par la suite de pouvoir bénéficier de la dynamique de groupe.', 'SOC00', 'Identifier les autres aprenants de la formation', 0);
+(1, 1, 'Identifier les autres aprenants de la formation', 'Cette séquence, essentiellement destinée à la phase de prairie permet aux apprenants à se connaître.\r\n\r\nPermettant par la suite de pouvoir bénéficier de la dynamique de groupe.', 'SOC00', 'Identifier les autres aprenants de la formation', 0),
+(6, 1, 'Découvrir et Configurer le poste de travail de l''apprenant', 'Découvrir et Configurer le poste de travail de l''apprenant', 'LIN00', 'Découvrir et Configurer le poste de travail de l''apprenant', 0);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `ActiviteDeFormation`
+--
+ALTER TABLE `ActiviteDeFormation`
+  ADD CONSTRAINT `ActiviteDeFormation_ibfk_1` FOREIGN KEY (`sequenceId`) REFERENCES `SequenceDeFormation` (`id`);
+
+--
+-- Constraints for table `linkProgrammeModule`
+--
+ALTER TABLE `linkProgrammeModule`
+  ADD CONSTRAINT `linkProgrammeModule_ibfk_2` FOREIGN KEY (`programmeId`) REFERENCES `ProgrammeDeFormation` (`id`),
+  ADD CONSTRAINT `linkProgrammeModule_ibfk_1` FOREIGN KEY (`moduleId`) REFERENCES `ModuleDeFormation` (`id`);
+
+--
+-- Constraints for table `SequenceDeFormation`
+--
+ALTER TABLE `SequenceDeFormation`
+  ADD CONSTRAINT `SequenceDeFormation_ibfk_1` FOREIGN KEY (`moduleId`) REFERENCES `ModuleDeFormation` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
