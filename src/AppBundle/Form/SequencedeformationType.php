@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SequencedeformationType extends AbstractType
 {
@@ -15,20 +15,11 @@ class SequencedeformationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = $this->getModuleChoiceList($options);
         $builder
-            //->add('moduleid')
-            ->add('moduleid', EntityType::class, array(
-                // query choices from this entity
-                'class' => 'AppBundle:Moduledeformation',
-
-                // use the User.username property as the visible option string
-                'label' => 'Module',
-                'choice_label' => 'code',
-                'choice_value' => 'id',
-                'disabled'    => true,
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
+            ->add('moduleid', ChoiceType::class, array(
+                'choices' => $choices,
+                'disabled' => true,
             ))
             ->add('intitule')
             ->add('description')
@@ -46,5 +37,20 @@ class SequencedeformationType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Sequencedeformation'
         ));
+        $resolver->setRequired('entity_manager');
+    }
+
+    /**
+    * Function called for the form generation . Generating the Sequence drop down list.
+    */
+    private function getModuleChoiceList($options){
+        $em = $options['entity_manager'];
+        $modules = $em->getRepository('AppBundle:Moduledeformation')->findAll();
+
+        $res = array();
+        foreach ($modules as $key => $module) {
+            $res[$module->getCode()] = $module->getId();
+        }
+        return $res; 
     }
 }
