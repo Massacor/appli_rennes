@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <h1>Welcome to Training ORM</h1>
+    <h1>Bienvenue à Training ORM</h1>
     <p>Le but de cette application est de permettre aux formateurs de planifier, et organiser la formation Simplon.co dispensée.
     Un programme pédagogique est à définir indépendement pour chaque promotion.
     Certains modules sont obligatoires, d'autres facultatifs et d'autres encore inter-dépendants.</p>
 
     <!-- TODO : Remplacer ceci par la liste des programmes pédagogiques -->
-    <h2>Liste des Modules </h2> 
-    {% for module in modules %}
-        <li> <a href='module/select/{{module.id}}'> {{ module.code }} : {{ module.intitule }}</a></li>
+    <h2>Liste des Programmes </h2> 
+    {% for prog in programmes %}
+        <li> <a href='programme/{{prog.id}}'> {{ prog.intitule }}</a></li>
     {% endfor %}
   
 {% endblock %}

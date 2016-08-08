@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Programmedeformation list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Intitule</th>
+                <th>Objectif</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for programmedeformation in programmedeformations %}
+            <tr>
+                <td><a href="{{ path('programme_show', { 'id': programmedeformation.id }) }}">{{ programmedeformation.intitule }}</a></td>
+                <td>{{ programmedeformation.objectif }}</td>
+                <td>{{ programmedeformation.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('programme_show', { 'id': programmedeformation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('programme_edit', { 'id': programmedeformation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('programme_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

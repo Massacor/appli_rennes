@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Moduledeformation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Intitule</th>
+                <td>{{ moduledeformation.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Objectif</th>
+                <td>{{ moduledeformation.objectif }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ moduledeformation.code }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ moduledeformation.description }}</td>
+            </tr>
+            <tr>
+                <th>Prerequis</th>
+                <td>{{ moduledeformation.prerequis }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ moduledeformation.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    <h2> Liste des séquences</h2>
+    <ul>
+        {% for sequence in sequences %}
+            <li>
+                <a href='/sequence/{{sequence.id}}'>
+                    {{sequence.code}} : {{sequence.intitule}}
+                </a>
+            </li>
+        {% endfor %}
+           <li>
+                <a href='/sequence/new?moduleid={{ moduledeformation.id }}'>
+                   Ajouter une séquence
+                </a>
+            </li>
+    </ul>
+
+    <ul>
+        <li>
+            <a href="{{ path('module_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('module_edit', { 'id': moduledeformation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

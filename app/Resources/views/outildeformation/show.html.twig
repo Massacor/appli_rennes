@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Outildeformation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ outildeformation.nom }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ outildeformation.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('outil_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('outil_edit', { 'id': outildeformation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

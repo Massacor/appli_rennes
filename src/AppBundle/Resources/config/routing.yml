@@ -1,4 +1,0 @@
-app_activitedeformation:
-    resource: "@AppBundle/Resources/config/routing/activitedeformation.php"
-    prefix:   /activitedeformation
-

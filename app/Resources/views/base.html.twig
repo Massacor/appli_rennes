@@ -2,11 +2,39 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Training ORM{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        <style type="text/css">
+            div.header {
+                
+                min-height: 256px;
+                background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEyOHB4IiBoZWlnaHQ9IjEyOHB4IiB2aWV3Qm94PSIwIDAgNDcgNDciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ3IDQ3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPGcgaWQ9IkxheWVyXzFfMTEwXyI+CgkJPGc+CgkJCTxwYXRoIGQ9Ik0xNy41NjcsMTUuOTM4bC0yLjg1OS0yLjcwMmMwLjMzMy0wLjYwNSwwLjUzOS0xLjI5LDAuNTM5LTIuMDI5YzAtMi4zNDItMS44OTctNC4yMzktNC4yNC00LjIzOSAgICAgYy0yLjM0MywwLTQuMjQzLDEuODk2LTQuMjQzLDQuMjM5YzAsMi4zNDMsMS45LDQuMjQxLDQuMjQzLDQuMjQxYzAuODI2LDAsMS41OS0wLjI0NiwyLjI0Mi0wLjY1NGwyLjg1NSwyLjY5OSAgICAgQzE2LjUzNiwxNi45MjIsMTcuMDIzLDE2LjM5OSwxNy41NjcsMTUuOTM4eiIgZmlsbD0iI0Q4MDAyNyIvPgoJCQk8cGF0aCBkPSJNMjkuNjYsMTUuNmwzLjc5OS02LjM5M2MwLjM3NCwwLjEwNywwLjc2MiwwLjE4NCwxLjE2OSwwLjE4NGMyLjM0NywwLDQuMjQ0LTEuODk4LDQuMjQ0LTQuMjQxICAgICBjMC0yLjM0Mi0xLjg5Ny00LjIzOS00LjI0NC00LjIzOWMtMi4zNDMsMC00LjIzOSwxLjg5Ni00LjIzOSw0LjIzOWMwLDEuMTYzLDAuNDY5LDIuMjE0LDEuMjI3LDIuOTgxbC0zLjc4Nyw2LjM3NSAgICAgQzI4LjQ4LDE0LjgwMSwyOS4wOTQsMTUuMTY5LDI5LjY2LDE1LjZ6IiBmaWxsPSIjRDgwMDI3Ii8+CgkJCTxwYXRoIGQ9Ik00Mi43NjIsMjAuOTUyYy0xLjgyNCwwLTMuMzY5LDEuMTU5LTMuOTY4LDIuNzc1bC01LjI3OC0wLjUyMWMwLDAuMDQsMC4wMDYsMC4wNzgsMC4wMDYsMC4xMTcgICAgIGMwLDAuNjg4LTAuMDc2LDEuMzYtMC4yMTMsMi4wMDlsNS4yNzYsMC41MjFjMC4zMTksMi4wMjQsMi4wNjIsMy41NzYsNC4xNzcsMy41NzZjMi4zNDIsMCw0LjIzOC0xLjg5Niw0LjIzOC00LjIzOCAgICAgQzQ3LDIyLjg1LDQ1LjEwNCwyMC45NTIsNDIuNzYyLDIwLjk1MnoiIGZpbGw9IiNEODAwMjciLz4KCQkJPHBhdGggZD0iTTI4LjE5NywzNy42MjRsLTEuMTgtNS4xNTZjLTAuNjY2LDAuMjMyLTEuMzU5LDAuMzk4LTIuMDgyLDAuNDgxbDEuMTgyLDUuMTU3Yy0xLjM1NSwwLjcwOS0yLjI5LDIuMTEtMi4yOSwzLjc0NiAgICAgYzAsMi4zNDIsMS44OTYsNC4yMzcsNC4yNDMsNC4yMzdjMi4zNDIsMCw0LjIzOC0xLjg5Niw0LjIzOC00LjIzN0MzMi4zMTEsMzkuNTUzLDMwLjQ3OSwzNy42OTIsMjguMTk3LDM3LjYyNHoiIGZpbGw9IiNEODAwMjciLz4KCQkJPHBhdGggZD0iTTE0LjM1NywyNS4zN2wtNi41NywyLjIwMWMtMC43NTgtMS4xNTgtMi4wNjMtMS45MjYtMy41NDgtMS45MjZDMS44OTYsMjUuNjQ1LDAsMjcuNTQyLDAsMjkuODg0ICAgICBjMCwyLjM0NSwxLjg5Niw0LjI0Miw0LjIzOSw0LjI0MmMyLjM0MSwwLDQuMjQyLTEuODk3LDQuMjQyLTQuMjQyYzAtMC4wOTgtMC4wMjEtMC4xODgtMC4wMjktMC4yODRsNi41OTEtMi4yMDcgICAgIEMxNC43NDYsMjYuNzUyLDE0LjUxLDI2LjA3NywxNC4zNTcsMjUuMzd6IiBmaWxsPSIjRDgwMDI3Ii8+CgkJCTxjaXJjbGUgY3g9IjIzLjgzIiBjeT0iMjMuMzIzIiByPSI3LjI3MSIgZmlsbD0iI0Q4MDAyNyIvPgoJCTwvZz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K);
+                background-repeat: no-repeat;
+                font-size:3em;
+                padding-left:128px;
+                vertical-align: middle;
+                
+            }
+            div.header-title{
+               margin:0 auto; 
+               color:red;
+               text-decoration: none;
+
+
+            }
+
+            </style>
     </head>
     <body>
+        <a href="/">
+            <div class='header'>
+                <div class='header-title'>
+                    TRAINING ORM
+                </div>
+            </div>
+        </a>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

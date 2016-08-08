@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sequencedeformation list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Moduleid</th>
+                <th>Intitule</th>
+                <th>Description</th>
+                <th>Code</th>
+                <th>Objectif</th>
+                <th>Evaluation</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sequencedeformation in sequencedeformations %}
+            <tr>
+                <td><a href="{{ path('sequence_show', { 'id': sequencedeformation.id }) }}">{{ sequencedeformation.moduleid }}</a></td>
+                <td>{{ sequencedeformation.intitule }}</td>
+                <td>{{ sequencedeformation.description }}</td>
+                <td>{{ sequencedeformation.code }}</td>
+                <td>{{ sequencedeformation.objectif }}</td>
+                <td>{% if sequencedeformation.evaluation %}Yes{% else %}No{% endif %}</td>
+                <td>{{ sequencedeformation.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sequence_show', { 'id': sequencedeformation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sequence_edit', { 'id': sequencedeformation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sequence_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

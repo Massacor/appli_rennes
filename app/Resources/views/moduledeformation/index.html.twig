@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Moduledeformation list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Intitule</th>
+                <th>Objectif</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Prerequis</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for moduledeformation in moduledeformations %}
+            <tr>
+                <td><a href="{{ path('module_show', { 'id': moduledeformation.id }) }}">{{ moduledeformation.intitule }}</a></td>
+                <td>{{ moduledeformation.objectif }}</td>
+                <td>{{ moduledeformation.code }}</td>
+                <td>{{ moduledeformation.description }}</td>
+                <td>{{ moduledeformation.prerequis }}</td>
+                <td>{{ moduledeformation.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('module_show', { 'id': moduledeformation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('module_edit', { 'id': moduledeformation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('module_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

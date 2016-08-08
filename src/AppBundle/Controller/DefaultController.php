@@ -14,14 +14,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $modules = $this->getDoctrine()
-            ->getRepository('AppBundle:Moduledeformation')
-            ->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $programmedeformations = $em->getRepository('AppBundle:Programmedeformation')->findAll();
 
-        $html = $this->container->get('templating')->render(
-            'default/index.html.twig',
-            array('modules' => $modules)
-        );
-        return new Response($html);
+        return $this->render('default/index.html.twig', array(
+            'programmes' => $programmedeformations,
+        ));
     }
 }

@@ -4,21 +4,25 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Activitedeformation;
 use AppBundle\Form\ActivitedeformationType;
 
 /**
  * Activitedeformation controller.
  *
+ * @Route("/activite")
  */
 class ActivitedeformationController extends Controller
 {
     /**
      * Lists all Activitedeformation entities.
      *
+     * @Route("/", name="activite_index")
+     * @Method("GET")
      */
-    /*public function indexAction()
+    public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -27,16 +31,26 @@ class ActivitedeformationController extends Controller
         return $this->render('activitedeformation/index.html.twig', array(
             'activitedeformations' => $activitedeformations,
         ));
-    }*/
+    }
 
     /**
      * Creates a new Activitedeformation entity.
      *
+     * @Route("/new", name="activite_new")
+     * @Method({"GET", "POST"})
      */
-    /*public function newAction(Request $request)
+    public function newAction(Request $request)
     {
         $activitedeformation = new Activitedeformation();
-        $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
+        if(isset($_GET['sequenceid'])){
+            $activitedeformation->setSequenceid($_GET['sequenceid']);
+        }
+        $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation, array(
+            'entity_manager' => $this->get('doctrine.orm.entity_manager')
+        ));
+
+        $form->get('sequenceid')->setData($activitedeformation->getSequenceid());
+        // echo "TOTO : ".$activitedeformation->getSequenceid();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,20 +58,22 @@ class ActivitedeformationController extends Controller
             $em->persist($activitedeformation);
             $em->flush();
 
-            return $this->redirectToRoute('activitedeformation_show', array('id' => $activitedeformation->getId()));
+            return $this->redirectToRoute('activite_show', array('id' => $activitedeformation->getId()));
         }
 
         return $this->render('activitedeformation/new.html.twig', array(
             'activitedeformation' => $activitedeformation,
             'form' => $form->createView(),
         ));
-    }*/
+    }
 
     /**
      * Finds and displays a Activitedeformation entity.
      *
+     * @Route("/{id}", name="activite_show")
+     * @Method("GET")
      */
-   /* public function showAction(Activitedeformation $activitedeformation)
+    public function showAction(Activitedeformation $activitedeformation)
     {
         $deleteForm = $this->createDeleteForm($activitedeformation);
 
@@ -65,16 +81,20 @@ class ActivitedeformationController extends Controller
             'activitedeformation' => $activitedeformation,
             'delete_form' => $deleteForm->createView(),
         ));
-    }*/
+    }
 
     /**
      * Displays a form to edit an existing Activitedeformation entity.
      *
+     * @Route("/{id}/edit", name="activite_edit")
+     * @Method({"GET", "POST"})
      */
-    /*public function editAction(Request $request, Activitedeformation $activitedeformation)
+    public function editAction(Request $request, Activitedeformation $activitedeformation)
     {
         $deleteForm = $this->createDeleteForm($activitedeformation);
-        $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
+        $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation, array(
+            'entity_manager' => $this->get('doctrine.orm.entity_manager')
+        ));
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -82,7 +102,7 @@ class ActivitedeformationController extends Controller
             $em->persist($activitedeformation);
             $em->flush();
 
-            return $this->redirectToRoute('activitedeformation_edit', array('id' => $activitedeformation->getId()));
+            return $this->redirectToRoute('activite_edit', array('id' => $activitedeformation->getId()));
         }
 
         return $this->render('activitedeformation/edit.html.twig', array(
@@ -91,12 +111,14 @@ class ActivitedeformationController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-*/
+
     /**
      * Deletes a Activitedeformation entity.
      *
+     * @Route("/{id}", name="activite_delete")
+     * @Method("DELETE")
      */
-   /* public function deleteAction(Request $request, Activitedeformation $activitedeformation)
+    public function deleteAction(Request $request, Activitedeformation $activitedeformation)
     {
         $form = $this->createDeleteForm($activitedeformation);
         $form->handleRequest($request);
@@ -107,8 +129,8 @@ class ActivitedeformationController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('activitedeformation_index');
-    }*/
+        return $this->redirectToRoute('activite_index');
+    }
 
     /**
      * Creates a form to delete a Activitedeformation entity.
@@ -117,12 +139,12 @@ class ActivitedeformationController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    /*private function createDeleteForm(Activitedeformation $activitedeformation)
+    private function createDeleteForm(Activitedeformation $activitedeformation)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('activitedeformation_delete', array('id' => $activitedeformation->getId())))
+            ->setAction($this->generateUrl('activite_delete', array('id' => $activitedeformation->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
-    }*/
+    }
 }

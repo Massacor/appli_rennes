@@ -57,6 +57,14 @@ class Moduledeformation
     private $id;
 
 
+    /*
+    *    FIXME
+    *    Magic function. used in the forms for getting the id instead of {}
+    */
+    public function __toString()
+    {
+        return $this->id."";
+    }
 
     /**
      * Set intitule

@@ -22,3 +22,9 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+services:
+    app.form.type.activitedeformation:
+        class: AppBundle\Form\ActivitedeformationType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
