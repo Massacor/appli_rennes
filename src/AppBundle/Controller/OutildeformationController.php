@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Outildeformation;
+use AppBundle\Entity\Linkactiviteoutil;
+use AppBundle\Entity\Activitedeformation;
 use AppBundle\Form\OutildeformationType;
 
 /**
@@ -24,15 +26,36 @@ class OutildeformationController extends Controller
      */
     public function indexAction()
     {
+        $activiteid = false;
+        if(isset($_GET['activiteid'])){
+            $activiteid = $_GET['activiteid'];
+        }
+        
         $em = $this->getDoctrine()->getManager();
 
         $outildeformations = $em->getRepository('AppBundle:Outildeformation')->findAll();
 
         return $this->render('outildeformation/index.html.twig', array(
             'outildeformations' => $outildeformations,
+            'activiteid' => $activiteid,
         ));
     }
 
+    /**
+     * Creates a new linkActiviteOutil entity.
+     *
+     * @Route("/{id}/link/{activiteid}", name="outil_link")
+     * @Method({"GET", "POST"})
+     */
+    public function linkAction(Request $request,Outildeformation $id, Activitedeformation $activiteid){
+        $em = $this->getDoctrine()->getManager();
+        $link = new Linkactiviteoutil();
+        $link->setOutilid($id);
+        $link->setActiviteid($activiteid);
+        $em->persist($link);
+        $em->flush();
+         return $this->redirectToRoute('activite_show', array('id' => $activiteid->getId()));
+    }
     /**
      * Creates a new Outildeformation entity.
      *
@@ -48,6 +71,14 @@ class OutildeformationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($outildeformation);
+
+            if(isset($_GET['activiteid'])){
+                $activiteid = $_GET['activiteid'];
+                $link = new Linkactiviteoutil();
+                $link->setOutilid($outildeformation);
+                $link->setActiviteid($activiteid);
+                $em->persist($link);
+            }
             $em->flush();
 
             return $this->redirectToRoute('outil_show', array('id' => $outildeformation->getId()));
@@ -68,7 +99,6 @@ class OutildeformationController extends Controller
     public function showAction(Outildeformation $outildeformation)
     {
         $deleteForm = $this->createDeleteForm($outildeformation);
-
         return $this->render('outildeformation/show.html.twig', array(
             'outildeformation' => $outildeformation,
             'delete_form' => $deleteForm->createView(),

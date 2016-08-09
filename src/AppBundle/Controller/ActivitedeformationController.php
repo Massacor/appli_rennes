@@ -75,8 +75,18 @@ class ActivitedeformationController extends Controller
     {
         $deleteForm = $this->createDeleteForm($activitedeformation);
 
+        $em = $this->getDoctrine()->getManager();
+        $links = $em->getRepository('AppBundle:Linkactiviteoutil')->findBy(array(
+            "activiteid" => $activitedeformation->getId()
+        ));
+
+        $tools = array();
+        foreach ($links as $key => $link) {
+           array_push($tools , $em->getRepository('AppBundle:Outildeformation')->find($link->getOutilid()));
+        }
         return $this->render('activitedeformation/show.html.twig', array(
             'activitedeformation' => $activitedeformation,
+            'outils' => $tools,
             'delete_form' => $deleteForm->createView(),
         ));
     }

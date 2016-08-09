@@ -45,10 +45,25 @@
                 <th>Id</th>
                 <td>{{ activitedeformation.id }}</td>
             </tr>
+
         </tbody>
     </table>
 
+    <h2> Outils requis </h2>
     <ul>
+        {% for tool in outils %}
+            <li>
+                {{tool.nom}}
+            </li>
+        {% endfor %}
+        <li>
+            <a href="{{ path('outil_index') }}?activiteid={{activitedeformation.id}}">Ajouter un outil</a>
+        </li>   
+    </ul>
+
+    <h2> Actions </h2>
+    <ul>
+    
         <li>
             <a href="{{ path('activite_index') }}">Back to the list</a>
         </li>

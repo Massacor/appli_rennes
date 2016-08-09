@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Linkprogrammemodule" table="linkProgrammeModule">
+  <entity name="AppBundle\Entity\Linkactiviteoutil" table="linkActiviteOutil">
     <indexes>
-      <index name="moduleId" columns="moduleId"/>
-      <index name="programmeId" columns="programmeId"/>
+      <index name="linkActiviteOutil_ibfk_2" columns="activiteId"/>
+      <index name="linkActiviteOutil_ibfk_1" columns="outilId"/>
     </indexes>
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
-    <many-to-one field="moduleid" target-entity="Moduledeformation" fetch="LAZY">
+    <many-to-one field="outilid" target-entity="Outildeformation" fetch="LAZY">
       <join-columns>
-        <join-column name="moduleId" referenced-column-name="id"/>
+        <join-column name="outilId" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
-    <many-to-one field="programmeid" target-entity="Programmedeformation" fetch="LAZY">
+    <many-to-one field="activiteid" target-entity="Activitedeformation" fetch="LAZY">
       <join-columns>
-        <join-column name="programmeId" referenced-column-name="id"/>
+        <join-column name="activiteId" referenced-column-name="id"/>
       </join-columns>
     </many-to-one>
   </entity>
