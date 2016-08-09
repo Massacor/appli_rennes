@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Moduledeformation;
+use AppBundle\Entity\Linkprogrammemodule;
 use AppBundle\Form\ModuledeformationType;
 
 /**
@@ -41,6 +42,7 @@ class ModuledeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $moduledeformation = new Moduledeformation();
         $form = $this->createForm('AppBundle\Form\ModuledeformationType', $moduledeformation);
         $form->handleRequest($request);
@@ -48,6 +50,16 @@ class ModuledeformationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($moduledeformation);
+
+            // Manage link programme <-> module creation
+            if(isset($_GET['programmeId'])){
+                $programme =  $em->getRepository('AppBundle:Programmedeformation')->find($_GET['programmeId']);
+                $linkProg2Module = new Linkprogrammemodule();
+                $linkProg2Module->setProgrammeid($programme);
+                $linkProg2Module->setModuleid($moduledeformation);
+                $em->persist($linkProg2Module);
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('module_show', array('id' => $moduledeformation->getId()));
@@ -120,6 +132,13 @@ class ModuledeformationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            // Manage link programme <-> module deletion
+
+            $linkProg2Module = $em->getRepository('AppBundle:Linkprogrammemodule')->findBy(array('moduleid' => $moduledeformation->getId()));
+            foreach ($linkProg2Module as $key => $link) {
+                           $em->remove($link);
+            }
             $em->remove($moduledeformation);
             $em->flush();
         }
