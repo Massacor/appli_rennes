@@ -19,10 +19,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('outil_link', { 'id': outildeformation.id , 'activiteid': activiteid }) }}">Link</a>
+                            <a href="{{ path('outil_link', { 'id': outildeformation.id , 'activiteid': activity.id, 'progid' : program.id }) }}">Link</a>
                         </li>
                         <li>
-                            <a href="{{ path('outil_unlink', { 'id': outildeformation.id , 'activiteid': activiteid }) }}">Unlink</a>
+                            <a href="{{ path('outil_unlink', { 'id': outildeformation.id , 'activiteid': activity.id, 'progid': program.id }) }}">Unlink</a>
                         </li>
                         <li>
                             <a href="{{ path('outil_show', { 'id': outildeformation.id }) }}">show</a>

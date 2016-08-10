@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Outildeformation;
 use AppBundle\Entity\Linkactiviteoutil;
 use AppBundle\Entity\Activitedeformation;
+use AppBundle\Entity\Programmedeformation;
 use AppBundle\Form\OutildeformationType;
 
 /**
@@ -21,15 +22,11 @@ class OutildeformationController extends Controller
     /**
      * Lists all Outildeformation entities.
      *
-     * @Route("/", name="outil_index")
+     * @Route("/{progid}/{actid}", name="outil_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Programmedeformation $progid, Activitedeformation $actid)
     {
-        $activiteid = false;
-        if(isset($_GET['activiteid'])){
-            $activiteid = $_GET['activiteid'];
-        }
         
         $em = $this->getDoctrine()->getManager();
 
@@ -37,34 +34,40 @@ class OutildeformationController extends Controller
 
         return $this->render('outildeformation/index.html.twig', array(
             'outildeformations' => $outildeformations,
-            'activiteid' => $activiteid,
+            'activity' => $actid,
+            'program' => $progid,
         ));
     }
 
     /**
      * Creates a new linkActiviteOutil entity.
      *
-     * @Route("/{id}/link/{activiteid}", name="outil_link")
+     * @Route("/{id}/link/{progid}/{activiteid}", name="outil_link")
      * @Method({"GET", "POST"})
      */
-    public function linkAction(Request $request,Outildeformation $id, Activitedeformation $activiteid){
+    public function linkAction(Request $request,Outildeformation $id, Programmedeformation $progid, Activitedeformation $activiteid){
         $em = $this->getDoctrine()->getManager();
         $link = new Linkactiviteoutil();
         $link->setOutilid($id);
         $link->setActiviteid($activiteid);
         $em->persist($link);
         $em->flush();
-         return $this->redirectToRoute('activite_show', array('id' => $activiteid->getId()));
+         return $this->redirectToRoute('activite_show', array(
+            'actid' => $activiteid->getId(),
+            'seqid' => $activiteid->getSequenceid()->getId(),
+            'modid' => $activiteid->getSequenceid()->getModuleid()->getid(),
+            'progid' => $progid->getId(),
+            ));
     }
 
     
     /**
      * Deletes a linkActiviteOutil entity.
      *
-     * @Route("/{id}/unlink/{activiteid}", name="outil_unlink")
+     * @Route("/{id}/unlink/{progid}/{activiteid}", name="outil_unlink")
      * @Method({"GET", "POST"})
      */
-    public function unlinkAction(Request $request,Outildeformation $id, Activitedeformation $activiteid){
+    public function unlinkAction(Request $request,Outildeformation $id, Programmedeformation $progid, Activitedeformation $activiteid){
         $em = $this->getDoctrine()->getManager();
 
         $links = $em->getRepository('AppBundle:Linkactiviteoutil')->findBy(array(
@@ -79,7 +82,12 @@ class OutildeformationController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('activite_show', array('id' => $activiteid->getId()));
+        return $this->redirectToRoute('activite_show', array(
+            'actid' => $activiteid->getId(),
+            'seqid' => $activiteid->getSequenceid()->getId(),
+            'modid' => $activiteid->getSequenceid()->getModuleid()->getid(),
+            'progid' => $progid->getId(),
+        ));
     }
 
     /**
