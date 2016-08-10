@@ -16,6 +16,7 @@ use AppBundle\Form\SequencedeformationType;
  */
 class SequencedeformationController extends Controller
 {
+    
     /**
      * Lists all Sequencedeformation entities.
      *
@@ -47,18 +48,27 @@ class SequencedeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+        $logger = $this->get('logger');
+        $sequencedeformation = new Sequencedeformation();
+
          // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
 
-        $sequencedeformation = new Sequencedeformation();
+        
         if(isset($_GET['moduleid'])){
             $module = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Moduledeformation')->find($_GET['moduleid']);
+
+            //Predefine values
             $sequencedeformation->setModuleid($module);
+            $sequencedeformation->setCode($module->getCode().'-');
+
+            //Manage breadcrumb
             $breadcrumbs->addItem($module->getCode(), $this->get("router")->generate("module_show", array("id"=> $module->getId())));
         }
         else{
             $breadcrumbs->addItem("Module index", $this->get("router")->generate("module_index"));
+            $logger->error('Module ID should always be predefined.');
         }
         $breadcrumbs->addItem("New sequence");
 

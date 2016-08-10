@@ -56,6 +56,32 @@ class OutildeformationController extends Controller
         $em->flush();
          return $this->redirectToRoute('activite_show', array('id' => $activiteid->getId()));
     }
+
+    
+    /**
+     * Deletes a linkActiviteOutil entity.
+     *
+     * @Route("/{id}/unlink/{activiteid}", name="outil_unlink")
+     * @Method({"GET", "POST"})
+     */
+    public function unlinkAction(Request $request,Outildeformation $id, Activitedeformation $activiteid){
+        $em = $this->getDoctrine()->getManager();
+
+        $links = $em->getRepository('AppBundle:Linkactiviteoutil')->findBy(array(
+            "outilid" => $id,
+            "activiteid" => $activiteid
+            ));
+        if(count($links)>0){
+            foreach ($links as $key => $link) {
+               $em->remove($link);
+            }
+            
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('activite_show', array('id' => $activiteid->getId()));
+    }
+
     /**
      * Creates a new Outildeformation entity.
      *

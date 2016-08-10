@@ -48,25 +48,33 @@ class ActivitedeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+        $logger = $this->get('logger');
+        $activitedeformation = new Activitedeformation();
 
          // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
 
-        $activitedeformation = new Activitedeformation();
+        
         if(isset($_GET['sequenceid'])){
             $sequencedeformation = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Sequencedeformation')->find($_GET['sequenceid']);
-            $activitedeformation->setSequenceid($sequencedeformation);
 
+            // Predefine values
+            $activitedeformation->setSequenceid($sequencedeformation);
+            $activitedeformation->setCode($sequencedeformation->getCode().'-');
+
+            //Manage Breadcrumb
             $breadcrumbs->addItem($activitedeformation->getSequenceid()->getModuleid(), $this->get("router")->generate("module_show", array("id"=> $activitedeformation->getSequenceid()->getModuleid()->getId())));
             $breadcrumbs->addItem($activitedeformation->getSequenceid(), $this->get("router")->generate("sequence_show", array("id"=> $activitedeformation->getSequenceid()->getId())));
 
+        }
+        else{
+             $logger->error('Missing Sequence ID in GET parameters');
         }
         $breadcrumbs->addItem("New activity");
 
         $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
 
-        // echo "TOTO : ".$activitedeformation->getSequenceid();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
