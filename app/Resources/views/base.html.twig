@@ -24,7 +24,14 @@
 
 
             }
-
+            .breadcrumb > li{
+                display: inline;
+                list-style: none; /* pour enlever les puces sur IE7 */
+                margin: 10px;
+            }
+            .separator{
+                margin-left:10px;
+            }
             </style>
     </head>
     <body>
@@ -35,6 +42,8 @@
                 </div>
             </div>
         </a>
+        {{ wo_render_breadcrumbs() }}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

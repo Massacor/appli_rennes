@@ -24,6 +24,12 @@ class SequencedeformationController extends Controller
      */
     public function indexAction()
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Modules index", $this->get("router")->generate("module_index"));
+         $breadcrumbs->addItem("Sequence index");
+
         $em = $this->getDoctrine()->getManager();
 
         $sequencedeformations = $em->getRepository('AppBundle:Sequencedeformation')->findAll();
@@ -41,11 +47,20 @@ class SequencedeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+         // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+
         $sequencedeformation = new Sequencedeformation();
         if(isset($_GET['moduleid'])){
             $module = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Moduledeformation')->find($_GET['moduleid']);
             $sequencedeformation->setModuleid($module);
+            $breadcrumbs->addItem($module->getCode(), $this->get("router")->generate("module_show", array("id"=> $module->getId())));
         }
+        else{
+            $breadcrumbs->addItem("Module index", $this->get("router")->generate("module_index"));
+        }
+        $breadcrumbs->addItem("New sequence");
 
         $form = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
 
@@ -73,6 +88,12 @@ class SequencedeformationController extends Controller
      */
     public function showAction(Sequencedeformation $sequencedeformation)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($sequencedeformation->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$sequencedeformation->getModuleid()->getId())));
+        $breadcrumbs->addItem($sequencedeformation->getCode(), $this->get("router")->generate("sequence_show", array('id'=>$sequencedeformation->getId())));
+
         $deleteForm = $this->createDeleteForm($sequencedeformation);
 
         $em = $this->getDoctrine()->getManager();
@@ -93,6 +114,12 @@ class SequencedeformationController extends Controller
      */
     public function editAction(Request $request, Sequencedeformation $sequencedeformation)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($sequencedeformation->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$sequencedeformation->getModuleid()->getId())));
+        $breadcrumbs->addItem($sequencedeformation->getCode(), $this->get("router")->generate("sequence_show", array('id'=>$sequencedeformation->getId())));
+
         $deleteForm = $this->createDeleteForm($sequencedeformation);
         $editForm = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
 
@@ -121,6 +148,12 @@ class SequencedeformationController extends Controller
      */
     public function deleteAction(Request $request, Sequencedeformation $sequencedeformation)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($sequencedeformation->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$sequencedeformation->getModuleid()->getId())));
+        $breadcrumbs->addItem($sequencedeformation->getCode(), $this->get("router")->generate("sequence_show", array('id'=>$sequencedeformation->getId())));
+
         $form = $this->createDeleteForm($sequencedeformation);
         $form->handleRequest($request);
 

@@ -24,6 +24,13 @@ class ActivitedeformationController extends Controller
      */
     public function indexAction()
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Modules index", $this->get("router")->generate("module_index"));
+        $breadcrumbs->addItem("Sequence index", $this->get("router")->generate("sequence_index"));
+        $breadcrumbs->addItem("Activity index", $this->get("router")->generate("sequence_index"));
+
         $em = $this->getDoctrine()->getManager();
 
         $activitedeformations = $em->getRepository('AppBundle:Activitedeformation')->findAll();
@@ -41,11 +48,22 @@ class ActivitedeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+
+         // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+
         $activitedeformation = new Activitedeformation();
         if(isset($_GET['sequenceid'])){
             $sequencedeformation = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Sequencedeformation')->find($_GET['sequenceid']);
             $activitedeformation->setSequenceid($sequencedeformation);
+
+            $breadcrumbs->addItem($activitedeformation->getSequenceid()->getModuleid(), $this->get("router")->generate("module_show", array("id"=> $activitedeformation->getSequenceid()->getModuleid()->getId())));
+            $breadcrumbs->addItem($activitedeformation->getSequenceid(), $this->get("router")->generate("sequence_show", array("id"=> $activitedeformation->getSequenceid()->getId())));
+
         }
+        $breadcrumbs->addItem("New activity");
+
         $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
 
         // echo "TOTO : ".$activitedeformation->getSequenceid();
@@ -73,6 +91,14 @@ class ActivitedeformationController extends Controller
      */
     public function showAction(Activitedeformation $activitedeformation)
     {
+
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($activitedeformation->getSequenceid()->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$activitedeformation->getSequenceid()->getModuleid()->getId())));
+        $breadcrumbs->addItem($activitedeformation->getSequenceid(), $this->get("router")->generate("sequence_show", array("id"=> $activitedeformation->getSequenceid()->getId())));
+        $breadcrumbs->addItem($activitedeformation->getCode(), $this->get("router")->generate("activite_show", array("id"=> $activitedeformation->getId())));
+
         $deleteForm = $this->createDeleteForm($activitedeformation);
 
         $em = $this->getDoctrine()->getManager();
@@ -99,6 +125,14 @@ class ActivitedeformationController extends Controller
      */
     public function editAction(Request $request, Activitedeformation $activitedeformation)
     {
+
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($activitedeformation->getSequenceid()->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$activitedeformation->getSequenceid()->getModuleid()->getId())));
+        $breadcrumbs->addItem($activitedeformation->getSequenceid(), $this->get("router")->generate("sequence_show", array("id"=> $activitedeformation->getSequenceid()->getId())));
+        $breadcrumbs->addItem($activitedeformation->getCode(), $this->get("router")->generate("activite_show", array("id"=> $activitedeformation->getId())));
+
         $deleteForm = $this->createDeleteForm($activitedeformation);
         $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
         $editForm->handleRequest($request);
@@ -126,6 +160,14 @@ class ActivitedeformationController extends Controller
      */
     public function deleteAction(Request $request, Activitedeformation $activitedeformation)
     {
+
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($activitedeformation->getSequenceid()->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$activitedeformation->getSequenceid()->getModuleid()->getId())));
+        $breadcrumbs->addItem($activitedeformation->getSequenceid(), $this->get("router")->generate("sequence_show", array("id"=> $activitedeformation->getSequenceid()->getId())));
+        $breadcrumbs->addItem($activitedeformation->getCode(), $this->get("router")->generate("activite_show", array("id"=> $activitedeformation->getId())));
+
         $form = $this->createDeleteForm($activitedeformation);
         $form->handleRequest($request);
 

@@ -25,8 +25,12 @@ class ModuledeformationController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Modules index");
 
+        $em = $this->getDoctrine()->getManager();
         $moduledeformations = $em->getRepository('AppBundle:Moduledeformation')->findAll();
 
         return $this->render('moduledeformation/index.html.twig', array(
@@ -42,6 +46,10 @@ class ModuledeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+         // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("New module");
 
         $moduledeformation = new Moduledeformation();
         $form = $this->createForm('AppBundle\Form\ModuledeformationType', $moduledeformation);
@@ -79,6 +87,11 @@ class ModuledeformationController extends Controller
      */
     public function showAction(Moduledeformation $moduledeformation)
     {
+         // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($moduledeformation->getCode());
+
         $deleteForm = $this->createDeleteForm($moduledeformation);
 
         $em = $this->getDoctrine()->getManager();
@@ -100,6 +113,11 @@ class ModuledeformationController extends Controller
      */
     public function editAction(Request $request, Moduledeformation $moduledeformation)
     {
+         // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($moduledeformation->getCode());
+
         $deleteForm = $this->createDeleteForm($moduledeformation);
         $editForm = $this->createForm('AppBundle\Form\ModuledeformationType', $moduledeformation);
         $editForm->handleRequest($request);
@@ -127,6 +145,11 @@ class ModuledeformationController extends Controller
      */
     public function deleteAction(Request $request, Moduledeformation $moduledeformation)
     {
+         // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($moduledeformation->getCode());
+        
         $form = $this->createDeleteForm($moduledeformation);
         $form->handleRequest($request);
 

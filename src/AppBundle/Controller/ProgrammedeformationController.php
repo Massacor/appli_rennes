@@ -24,8 +24,12 @@ class ProgrammedeformationController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("Programme index");
 
+        $em = $this->getDoctrine()->getManager();
         $programmedeformations = $em->getRepository('AppBundle:Programmedeformation')->findAll();
 
         return $this->render('programmedeformation/index.html.twig', array(
@@ -41,6 +45,11 @@ class ProgrammedeformationController extends Controller
      */
     public function newAction(Request $request)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem("New program");
+
         $programmedeformation = new Programmedeformation();
         $form = $this->createForm('AppBundle\Form\ProgrammedeformationType', $programmedeformation);
         $form->handleRequest($request);
@@ -67,6 +76,11 @@ class ProgrammedeformationController extends Controller
      */
     public function showAction(Programmedeformation $programmedeformation)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($programmedeformation->getIntitule());
+        //$breadcrumbs->addItem("Some text without link");
         $deleteForm = $this->createDeleteForm($programmedeformation);
 
         $em = $this->getDoctrine()->getManager();
@@ -94,6 +108,11 @@ class ProgrammedeformationController extends Controller
      */
     public function editAction(Request $request, Programmedeformation $programmedeformation)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($programmedeformation->getIntitule());
+
         $deleteForm = $this->createDeleteForm($programmedeformation);
         $editForm = $this->createForm('AppBundle\Form\ProgrammedeformationType', $programmedeformation);
         $editForm->handleRequest($request);
@@ -121,6 +140,11 @@ class ProgrammedeformationController extends Controller
      */
     public function deleteAction(Request $request, Programmedeformation $programmedeformation)
     {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($programmedeformation->getIntitule());
+
         $form = $this->createDeleteForm($programmedeformation);
         $form->handleRequest($request);
 
