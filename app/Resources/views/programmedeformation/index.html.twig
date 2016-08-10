@@ -15,16 +15,16 @@
         <tbody>
         {% for programmedeformation in programmedeformations %}
             <tr>
-                <td><a href="{{ path('programme_show', { 'id': programmedeformation.id }) }}">{{ programmedeformation.intitule }}</a></td>
+                <td><a href="{{ path('programme_show', { 'progid': programmedeformation.id }) }}">{{ programmedeformation.intitule }}</a></td>
                 <td>{{ programmedeformation.objectif }}</td>
                 <td>{{ programmedeformation.id }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('programme_show', { 'id': programmedeformation.id }) }}">show</a>
+                            <a href="{{ path('programme_show', { 'progid': programmedeformation.id }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('programme_edit', { 'id': programmedeformation.id }) }}">edit</a>
+                            <a href="{{ path('programme_edit', { 'progid': programmedeformation.id }) }}">edit</a>
                         </li>
                     </ul>
                 </td>

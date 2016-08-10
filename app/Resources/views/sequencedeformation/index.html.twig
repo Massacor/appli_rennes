@@ -19,7 +19,7 @@
         <tbody>
         {% for sequencedeformation in sequencedeformations %}
             <tr>
-                <td><a href="{{ path('sequence_show', { 'id': sequencedeformation.id }) }}">{{ sequencedeformation.moduleid }}</a></td>
+                <td><a href="{{ path('sequence_show', { 'seqid': sequencedeformation.id, 'modid':module.id, 'progid':program.id }) }}">{{ sequencedeformation.moduleid }}</a></td>
                 <td>{{ sequencedeformation.intitule }}</td>
                 <td>{{ sequencedeformation.description }}</td>
                 <td>{{ sequencedeformation.code }}</td>
@@ -29,10 +29,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('sequence_show', { 'id': sequencedeformation.id }) }}">show</a>
+                            <a href="{{ path('sequence_show', { 'seqid': sequencedeformation.id, 'modid':module.id, 'progid':program.id}) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('sequence_edit', { 'id': sequencedeformation.id }) }}">edit</a>
+                            <a href="{{ path('sequence_edit', { 'seqid': sequencedeformation.id , 'modid':module.id, 'progid':program.id}) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -43,7 +43,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('sequence_new') }}">Create a new entry</a>
+            <a href="{{ path('sequence_new', { 'progid':program.id, 'modid':module.id }) }}">Create a new entry</a>
         </li>
     </ul>
 {% endblock %}

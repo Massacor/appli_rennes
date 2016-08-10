@@ -7,27 +7,27 @@
         <tbody>
             <tr>
                 <th>Intitule</th>
-                <td>{{ moduledeformation.intitule }}</td>
+                <td>{{ module.intitule }}</td>
             </tr>
             <tr>
                 <th>Objectif</th>
-                <td>{{ moduledeformation.objectif }}</td>
+                <td>{{ module.objectif }}</td>
             </tr>
             <tr>
                 <th>Code</th>
-                <td>{{ moduledeformation.code }}</td>
+                <td>{{ module.code }}</td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ moduledeformation.description }}</td>
+                <td>{{ module.description }}</td>
             </tr>
             <tr>
                 <th>Prerequis</th>
-                <td>{{ moduledeformation.prerequis }}</td>
+                <td>{{ module.prerequis }}</td>
             </tr>
             <tr>
                 <th>Id</th>
-                <td>{{ moduledeformation.id }}</td>
+                <td>{{ module.id }}</td>
             </tr>
         </tbody>
     </table>
@@ -38,13 +38,13 @@
     <ul>
         {% for sequence in sequences %}
             <li>
-                <a href='/sequence/{{sequence.id}}'>
+                <a href="{{ path('sequence_show', { 'seqid':sequence.id, 'modid':module.id, 'progid':program.id }) }}">
                     {{sequence.code}} : {{sequence.intitule}}
                 </a>
             </li>
         {% endfor %}
            <li>
-                <a href='/sequence/new?moduleid={{ moduledeformation.id }}'>
+                <a href="{{ path('sequence_new', { 'modid': module.id, 'progid':program.id }) }}">
                    Ajouter une séquence
                 </a>
             </li>
@@ -52,10 +52,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('module_index') }}">Back to the list</a>
+            <a href="{{ path('module_index', { 'modid': module.id, 'progid':program.id }) }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('module_edit', { 'id': moduledeformation.id }) }}">Edit</a>
+            <a href="{{ path('module_edit', { 'modid': module.id, 'progid':program.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

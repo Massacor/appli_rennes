@@ -24,13 +24,13 @@
     <ul>
         {% for module in modules %}
             <li>
-                <a href='/module/{{module.id}}'>
+                <a href='{{ path('module_show', {'progid' : programmedeformation.id, 'modid': module.id  }) }} '>
                     {{module.code}} : {{module.intitule}}
                 </a>
             </li>
         {% endfor %}
             <li>
-                <a href='/module/new?programmeId={{ programmedeformation.id }}'>
+                <a href="{{ path('module_new', {'progid' : programmedeformation.id}) }}">
                    Ajouter un module
                 </a>
             </li>
@@ -42,7 +42,7 @@
             <a href="{{ path('programme_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('programme_edit', { 'id': programmedeformation.id }) }}">Edit</a>
+            <a href="{{ path('programme_edit', { 'progid': programmedeformation.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Sequencedeformation;
+use AppBundle\Entity\Moduledeformation;
+use AppBundle\Entity\Programmedeformation;
 use AppBundle\Form\SequencedeformationType;
 
 /**
@@ -16,19 +18,19 @@ use AppBundle\Form\SequencedeformationType;
  */
 class SequencedeformationController extends Controller
 {
-    
-    /**
-     * Lists all Sequencedeformation entities.
+     /**
+     * Lists all Sequence de formation entities. No filter on program nor module.
+     * View should only be viewed bu super user.
      *
-     * @Route("/", name="sequence_index")
+     * @Route("/", name="sequence_super_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexSuperAction()
     {
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Modules index", $this->get("router")->generate("module_index"));
+        $breadcrumbs->addItem("Modules index", $this->get("router")->generate("module_super_index"));
          $breadcrumbs->addItem("Sequence index");
 
         $em = $this->getDoctrine()->getManager();
@@ -41,35 +43,64 @@ class SequencedeformationController extends Controller
     }
 
     /**
+     * Lists all Sequencedeformation entities.
+     *
+     * @Route("/{progid}/{modid}", name="sequence_index")
+     * @Method("GET")
+     */
+    public function indexAction(Programmedeformation $progid, Moduledeformation $modid)
+    {
+        // Manage Breadcrumbs
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array('progid' => $progid->getId())));
+        $breadcrumbs->addItem("Modules index", $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid' => $progid->getId())));
+         $breadcrumbs->addItem("Sequence index");
+
+        $em = $this->getDoctrine()->getManager();
+
+        $sequencedeformations = $em->getRepository('AppBundle:Sequencedeformation')->findBy(array(
+            'moduleid' => $modid->getId()
+            ));
+
+        return $this->render('sequencedeformation/index.html.twig', array(
+            'sequencedeformations' => $sequencedeformations,
+            'module' => $modid,
+            'program' => $progid,
+        ));
+    }
+
+    /**
      * Creates a new Sequencedeformation entity.
      *
-     * @Route("/new", name="sequence_new")
+     * @Route("/{progid}/{modid}/new", name="sequence_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Programmedeformation $progid, Moduledeformation $modid)
     {
         $logger = $this->get('logger');
         $sequencedeformation = new Sequencedeformation();
 
          // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
+        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
+            'progid'=>$progid->getId())));
 
-        
-        if(isset($_GET['moduleid'])){
-            $module = $this->get('doctrine.orm.entity_manager')->getRepository('AppBundle:Moduledeformation')->find($_GET['moduleid']);
+        //Predefine values
+        $sequencedeformation->setModuleid($modid);
+        $sequencedeformation->setCode($modid->getCode().'-');
 
-            //Predefine values
-            $sequencedeformation->setModuleid($module);
-            $sequencedeformation->setCode($module->getCode().'-');
+        //Manage breadcrumb
+        $breadcrumbs->addItem($modid->getCode(), $this->get("router")->generate("module_show", array(
+            "modid"=> $modid->getId(),
+            'progid' => $progid->getId(),
+            )));
 
-            //Manage breadcrumb
-            $breadcrumbs->addItem($module->getCode(), $this->get("router")->generate("module_show", array("id"=> $module->getId())));
-        }
-        else{
-            $breadcrumbs->addItem("Module index", $this->get("router")->generate("module_index"));
-            $logger->error('Module ID should always be predefined.');
-        }
+        // else{
+        //     $breadcrumbs->addItem("Module index", $this->get("router")->generate("module_super_index"));
+        //     $logger->error('Module ID should always be predefined.');
+        // }
+
+
         $breadcrumbs->addItem("New sequence");
 
         $form = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
@@ -81,11 +112,17 @@ class SequencedeformationController extends Controller
             $em->persist($sequencedeformation);
             $em->flush();
 
-            return $this->redirectToRoute('sequence_show', array('id' => $sequencedeformation->getId()));
+            return $this->redirectToRoute('sequence_show', array(
+                'seqid' => $sequencedeformation->getId(),
+                'modid' => $modid->getId(),
+                'progid' => $progid->getId()
+                ));
         }
 
         return $this->render('sequencedeformation/new.html.twig', array(
             'sequencedeformation' => $sequencedeformation,
+            'program' => $progid,
+            'module' => $modid,
             'form' => $form->createView(),
         ));
     }
@@ -93,24 +130,30 @@ class SequencedeformationController extends Controller
     /**
      * Finds and displays a Sequencedeformation entity.
      *
-     * @Route("/{id}", name="sequence_show")
+     * @Route("/{progid}/{modid}/{seqid}", name="sequence_show")
      * @Method("GET")
      */
-    public function showAction(Sequencedeformation $sequencedeformation)
+    public function showAction(Programmedeformation $progid, Moduledeformation  $modid,Sequencedeformation $seqid)
     {
+        
+        $log = $this->get('logger');
+        $log->info('pouet');
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($sequencedeformation->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$sequencedeformation->getModuleid()->getId())));
-        $breadcrumbs->addItem($sequencedeformation->getCode(), $this->get("router")->generate("sequence_show", array('id'=>$sequencedeformation->getId())));
+         $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
+            'progid'=>$progid->getId())));
+        $breadcrumbs->addItem($modid->getCode(), $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid'=>$progid->getId())));
+        $breadcrumbs->addItem($seqid->getCode(), $this->get("router")->generate("sequence_show", array('seqid'=>$seqid->getId(), 'modid'=>$modid->getId(), 'progid'=>$progid->getId())));
 
-        $deleteForm = $this->createDeleteForm($sequencedeformation);
+        $deleteForm = $this->createDeleteForm($progid, $modid, $seqid);
 
         $em = $this->getDoctrine()->getManager();
-        $activites= $em->getRepository('AppBundle:Activitedeformation')->findBy(array('sequenceid' => $sequencedeformation->getId()));
+        $activites= $em->getRepository('AppBundle:Activitedeformation')->findBy(array('sequenceid' => $seqid->getId()));
 
         return $this->render('sequencedeformation/show.html.twig', array(
-            'sequencedeformation' => $sequencedeformation,
+            'program' => $progid,
+            'module' => $modid,
+            'sequencedeformation' => $seqid,
             'activites' => $activites,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -119,32 +162,38 @@ class SequencedeformationController extends Controller
     /**
      * Displays a form to edit an existing Sequencedeformation entity.
      *
-     * @Route("/{id}/edit", name="sequence_edit")
+     * @Route("/{progid}/{modid}/{seqid}/edit", name="sequence_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Sequencedeformation $sequencedeformation)
+    public function editAction(Request $request, Programmedeformation $progid, Moduledeformation $modid,Sequencedeformation $seqid)
     {
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($sequencedeformation->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$sequencedeformation->getModuleid()->getId())));
-        $breadcrumbs->addItem($sequencedeformation->getCode(), $this->get("router")->generate("sequence_show", array('id'=>$sequencedeformation->getId())));
+        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
+            'progid'=>$progid->getId())));
+        $breadcrumbs->addItem($seqid->getModuleid(), $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid'=>$progid->getId())));
+        $breadcrumbs->addItem($seqid->getCode(), $this->get("router")->generate("sequence_show", array('seqid'=>$seqid->getId(), 'modid'=>$modid->getId(), 'progid'=>$progid->getId())));
 
-        $deleteForm = $this->createDeleteForm($sequencedeformation);
-        $editForm = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
+        $deleteForm = $this->createDeleteForm($progid, $modid, $seqid);
+        $editForm = $this->createForm('AppBundle\Form\SequencedeformationType', $seqid);
 
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($sequencedeformation);
+            $em->persist($seqid);
             $em->flush();
 
-            return $this->redirectToRoute('sequence_edit', array('id' => $sequencedeformation->getId()));
+            return $this->redirectToRoute('sequence_edit', array(
+                'seqid' => $seqid->getId(), 
+                'modid'=>$modid->getId(),
+                'progid' => $progid->getId()));
         }
 
         return $this->render('sequencedeformation/edit.html.twig', array(
-            'sequencedeformation' => $sequencedeformation,
+            'sequencedeformation' => $seqid,
+            'module' => $modid,
+            'program'=> $progid,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -153,27 +202,31 @@ class SequencedeformationController extends Controller
     /**
      * Deletes a Sequencedeformation entity.
      *
-     * @Route("/{id}", name="sequence_delete")
+     * @Route("/{progid}/{modid}/{seqid}", name="sequence_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Sequencedeformation $sequencedeformation)
+    public function deleteAction(Request $request,Programmedeformation $progid, Moduledeformation $modid, Sequencedeformation $seqid)
     {
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($sequencedeformation->getModuleid(), $this->get("router")->generate("module_show", array('id'=>$sequencedeformation->getModuleid()->getId())));
-        $breadcrumbs->addItem($sequencedeformation->getCode(), $this->get("router")->generate("sequence_show", array('id'=>$sequencedeformation->getId())));
+        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
+            'progid'=>$progid->getId())));
+        $breadcrumbs->addItem($seqid->getModuleid(), $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid'=>$progid->getId())));
+        $breadcrumbs->addItem($seqid->getCode(), $this->get("router")->generate("sequence_show", array('seqid'=>$seqid->getId(), 'modid'=>$modid->getId(), 'progid'=>$progid->getId())));
 
-        $form = $this->createDeleteForm($sequencedeformation);
+        $form = $this->createDeleteForm($progid, $modid, $seqid);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($sequencedeformation);
+            $em->remove($seqid);
             $em->flush();
         }
 
-        return $this->redirectToRoute('sequence_index');
+        return $this->redirectToRoute('sequence_index', array(
+            'modid'=>$modid->getId(), 
+            'progid'=>$progid->getId()
+        ));
     }
 
     /**
@@ -183,10 +236,10 @@ class SequencedeformationController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Sequencedeformation $sequencedeformation)
+    private function createDeleteForm(Programmedeformation $prog, Moduledeformation $module, Sequencedeformation $sequencedeformation)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('sequence_delete', array('id' => $sequencedeformation->getId())))
+            ->setAction($this->generateUrl('sequence_delete', array('seqid' => $sequencedeformation->getId(), 'progid' =>$prog->getId(), 'modid'=>$module->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

@@ -36,6 +36,11 @@ class Programmedeformation
     private $id;
 
 
+    public function __toString()
+    {
+        return $this->intitule;
+    }
+
 
     /**
      * Set intitule

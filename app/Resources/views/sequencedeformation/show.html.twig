@@ -40,13 +40,13 @@
     <ul>
         {% for activite in activites %}
             <li>
-                <a href='/activite/{{activite.id}}'>
+                <a href='{{ path('activite_show', { 'actid':activite.id, 'seqid':sequencedeformation.id, 'modid':module.id, 'progid':program.id }) }}'>
                     {{activite.code}} : {{activite.intitule}}
                 </a>
             </li>
         {% endfor %}
            <li>
-                <a href='/activite/new?sequenceid={{ sequencedeformation.id }}'>
+                <a href='{{ path('activite_new', {'seqid':sequencedeformation.id, 'modid':module.id, 'progid':program.id }) }}'>
                    Ajouter une activité
                 </a>
             </li>
@@ -54,10 +54,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('sequence_index') }}">Back to the list</a>
+            <a href="{{ path('sequence_index', { 'modid':module.id, 'progid':program.id }) }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('sequence_edit', { 'id': sequencedeformation.id }) }}">Edit</a>
+            <a href="{{ path('sequence_edit', { 'seqid': sequencedeformation.id, 'modid':module.id, 'progid':program.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

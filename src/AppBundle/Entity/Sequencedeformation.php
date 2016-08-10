@@ -44,7 +44,7 @@ class Sequencedeformation
     */
     public function __toString()
     {
-        return $this->code;
+        return $this->id."";
     }
     /**
      * Set intitule

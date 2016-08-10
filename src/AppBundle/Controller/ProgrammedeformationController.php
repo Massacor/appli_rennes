@@ -71,21 +71,21 @@ class ProgrammedeformationController extends Controller
     /**
      * Finds and displays a Programmedeformation entity.
      *
-     * @Route("/{id}", name="programme_show")
+     * @Route("/{progid}", name="programme_show")
      * @Method("GET")
      */
-    public function showAction(Programmedeformation $programmedeformation)
+    public function showAction(Programmedeformation $progid)
     {
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($programmedeformation->getIntitule());
+        $breadcrumbs->addItem($progid->getIntitule());
         //$breadcrumbs->addItem("Some text without link");
-        $deleteForm = $this->createDeleteForm($programmedeformation);
+        $deleteForm = $this->createDeleteForm($progid);
 
         $em = $this->getDoctrine()->getManager();
 
-        $linkProgrammeModule = $em->getRepository('AppBundle:Linkprogrammemodule')->findBy(array('programmeid' => $programmedeformation->getId()));
+        $linkProgrammeModule = $em->getRepository('AppBundle:Linkprogrammemodule')->findBy(array('programmeid' => $progid->getId()));
 
         $modules = array();
         foreach ($linkProgrammeModule as $key => $link) {
@@ -94,7 +94,7 @@ class ProgrammedeformationController extends Controller
         }
 
         return $this->render('programmedeformation/show.html.twig', array(
-            'programmedeformation' => $programmedeformation,
+            'programmedeformation' => $progid,
             'modules' => $modules,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -103,30 +103,30 @@ class ProgrammedeformationController extends Controller
     /**
      * Displays a form to edit an existing Programmedeformation entity.
      *
-     * @Route("/{id}/edit", name="programme_edit")
+     * @Route("/{progid}/edit", name="programme_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Programmedeformation $programmedeformation)
+    public function editAction(Request $request, Programmedeformation $progid)
     {
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($programmedeformation->getIntitule());
+        $breadcrumbs->addItem($progid->getIntitule());
 
-        $deleteForm = $this->createDeleteForm($programmedeformation);
-        $editForm = $this->createForm('AppBundle\Form\ProgrammedeformationType', $programmedeformation);
+        $deleteForm = $this->createDeleteForm($progid);
+        $editForm = $this->createForm('AppBundle\Form\ProgrammedeformationType', $progid);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($programmedeformation);
+            $em->persist($progid);
             $em->flush();
 
-            return $this->redirectToRoute('programme_edit', array('id' => $programmedeformation->getId()));
+            return $this->redirectToRoute('programme_edit', array('progid' => $progid->getId()));
         }
 
         return $this->render('programmedeformation/edit.html.twig', array(
-            'programmedeformation' => $programmedeformation,
+            'programmedeformation' => $progid,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -135,22 +135,22 @@ class ProgrammedeformationController extends Controller
     /**
      * Deletes a Programmedeformation entity.
      *
-     * @Route("/{id}", name="programme_delete")
+     * @Route("/{progid}", name="programme_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Programmedeformation $programmedeformation)
+    public function deleteAction(Request $request, Programmedeformation $progid)
     {
         // Manage Breadcrumbs
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($programmedeformation->getIntitule());
+        $breadcrumbs->addItem($progid->getIntitule());
 
-        $form = $this->createDeleteForm($programmedeformation);
+        $form = $this->createDeleteForm($progid);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($programmedeformation);
+            $em->remove($progid);
             $em->flush();
         }
 
@@ -167,7 +167,7 @@ class ProgrammedeformationController extends Controller
     private function createDeleteForm(Programmedeformation $programmedeformation)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('programme_delete', array('id' => $programmedeformation->getId())))
+            ->setAction($this->generateUrl('programme_delete', array('progid' => $programmedeformation->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

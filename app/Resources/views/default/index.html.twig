@@ -8,7 +8,7 @@
     <!-- TODO : Remplacer ceci par la liste des programmes pédagogiques -->
     <h2>Liste des Programmes </h2> 
     {% for prog in programmes %}
-        <li> <a href='programme/{{prog.id}}'> {{ prog.intitule }}</a></li>
+        <li> <a href='{{ path('programme_show', { 'progid': prog.id }) }}'> {{ prog.intitule }}</a></li>
     {% endfor %}
   
 {% endblock %}

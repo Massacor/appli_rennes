@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('activite_index') }}">Back to the list</a>
+            <a href="{{ path('activite_index', {'progid':program.id, 'modid':module.id, 'seqid':sequence.id}) }}">Back to the list</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
