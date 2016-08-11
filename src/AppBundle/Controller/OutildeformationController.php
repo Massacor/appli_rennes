@@ -47,17 +47,27 @@ class OutildeformationController extends Controller
      */
     public function linkAction(Request $request,Outildeformation $id, Programmedeformation $progid, Activitedeformation $activiteid){
         $em = $this->getDoctrine()->getManager();
-        $link = new Linkactiviteoutil();
-        $link->setOutilid($id);
-        $link->setActiviteid($activiteid);
-        $em->persist($link);
-        $em->flush();
-         return $this->redirectToRoute('activite_show', array(
+        $links = $em->getRepository('AppBundle:Linkactiviteoutil')->findBy(array(
+            "outilid" => $id,
+            "activiteid" => $activiteid
+            ));
+        if(count($links)==0){
+            $link = new Linkactiviteoutil();
+            $link->setOutilid($id);
+            $link->setActiviteid($activiteid);
+            $em->persist($link);
+            $em->flush();
+        }
+        else{
+            $logger = $this->get('logger');
+            $logger->info("Already existing link between Act[".$activiteid->getId()."] and Tool[".$id->getId()."]. Skipping link creation.");
+        }
+        return $this->redirectToRoute('activite_show', array(
             'actid' => $activiteid->getId(),
             'seqid' => $activiteid->getSequenceid()->getId(),
             'modid' => $activiteid->getSequenceid()->getModuleid()->getid(),
             'progid' => $progid->getId(),
-            ));
+        ));
     }
 
     
