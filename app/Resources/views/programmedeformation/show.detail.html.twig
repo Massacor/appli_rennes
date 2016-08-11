@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        .module{
+              border-radius: 5px;
+              box-shadow: 0 2px 30px rgba(black, .2);
+              background: #eee;
+              position: relative;
+              overflow: hidden;
+              transform: translate3d(0, 0, 0);
+              margin:1em;
+              padding:1em;
+        }
+        .sequence{
+            margin:1em;
+        }
+        .activity{
+            margin-left:10em;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <h1>Detail : {{ program.intitule }}</h1>
+
+    {% for mod in modules %}
+        <div class="module">
+            <a href='{{ path('module_show', {'progid' : program.id, 'modid': mod.id  }) }} '>
+                <h2>{{ mod.intitule }} [{{mod.code}}]</h2>
+            </a>
+            {% for seq in sequences[mod.id] %}
+                <a href="{{ path('sequence_show', { 'seqid':seq.id, 'modid':mod.id, 'progid':program.id }) }}">
+                    <h3  class='sequence'> {{ seq.intitule }} [{{seq.code}}]</h3>
+                </a>
+                {% for act in activites[seq.id] %}
+                    <a href='{{ path('activite_show', { 'actid':act.id, 'seqid':seq.id, 'modid':mod.id, 'progid':program.id }) }}'>
+                        <div  class='activity'>{{act.code}} : {{ act.intitule }}</div>
+                    </a>
+                {% endfor %}
+            {% endfor %} 
+        </div>  
+    {% endfor %}
+
+{% endblock %}

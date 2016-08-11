@@ -16,6 +16,10 @@
                 <th>Id</th>
                 <td>{{ programmedeformation.id }}</td>
             </tr>
+            <tr>
+                <th>Detailed View</th>
+                <td> <a href="{{ path('programme_detail', { 'progid': programmedeformation.id }) }}">Link</a </td>
+            </tr>
         </tbody>
     </table>
 
@@ -38,9 +42,9 @@
 
 
     <ul>
-        <li>
+        {# <li>
             <a href="{{ path('programme_index') }}">Back to the list</a>
-        </li>
+        </li> #}
         <li>
             <a href="{{ path('programme_edit', { 'progid': programmedeformation.id }) }}">Edit</a>
         </li>
