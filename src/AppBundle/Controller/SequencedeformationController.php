@@ -82,7 +82,25 @@ class SequencedeformationController extends Controller
 
         //Predefine values
         $sequencedeformation->setModuleid($modid);
-        $sequencedeformation->setCode($modid->getCode().'-');
+
+        $query = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT s
+            FROM AppBundle:Sequencedeformation s
+            WHERE s.code like :code
+            ORDER BY s.code DESC'
+        )->setParameter('code', $modid->getCode().'-%');
+
+        $sequences = $query->getResult();
+        if(count($sequences)>0){
+            $aTmpCode = explode('-', $sequences[0]->getCode());
+            $newCodeNbr = intval($aTmpCode[count($aTmpCode)-1])+1;
+            $newCode = $modid->getCode().'-';
+            ($newCodeNbr<10)?$newCode.="0".$newCodeNbr:$newCode.=$newCodeNbr;
+            $sequencedeformation->setCode($newCode);
+        }
+        else{
+            $sequencedeformation->setCode($modid->getCode().'-');
+        }
 
 
 

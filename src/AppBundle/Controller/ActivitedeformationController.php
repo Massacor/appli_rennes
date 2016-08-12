@@ -81,9 +81,26 @@ class ActivitedeformationController extends Controller
         $this->generateBreadcrumb($progid, $modid, $seqid, "Nouvelle Activité");
 
         // Predefine values
-        $activitedeformation->setSequenceid($seqid);
-        $activitedeformation->setCode($seqid->getCode().'-');
-        
+        $activitedeformation->setSequenceid($seqid);        
+        $query = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT a
+            FROM AppBundle:Activitedeformation a
+            WHERE a.code like :code
+            ORDER BY a.code DESC'
+        )->setParameter('code', $seqid->getCode().'-%');
+
+        $activities = $query->getResult();
+        if(count($activities)>0){
+            $aTmpCode = explode('-', $activities[0]->getCode());
+            $newCodeNbr = intval($aTmpCode[count($aTmpCode)-1])+1;
+            $newCode = $seqid->getCode().'-';
+            ($newCodeNbr<10)?$newCode.="0".$newCodeNbr:$newCode.=$newCodeNbr;
+            $activitedeformation->setCode($newCode);
+        }
+        else{
+            $activitedeformation->setCode($seqid->getCode().'-');
+        }
+
         $opt = array('attr' =>array('moduleid' => $modid->getId()));
 
 
