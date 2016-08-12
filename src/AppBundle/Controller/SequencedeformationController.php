@@ -92,10 +92,19 @@ class SequencedeformationController extends Controller
 
         $sequences = $query->getResult();
         if(count($sequences)>0){
-            $aTmpCode = explode('-', $sequences[0]->getCode());
-            $newCodeNbr = intval($aTmpCode[count($aTmpCode)-1])+1;
+            $elem = 0;
+            do {
+                $aTmpCode = explode('-', $sequences[$elem]->getCode());
+                $newCodeNbr = $aTmpCode[count($aTmpCode)-1];
+                $elem++;
+                $logger->info("Found newCodeNbr : ".$newCodeNbr );
+            } while ( !is_numeric($newCodeNbr) && $elem < count($sequences));
+            $newCodeNbr=intval($newCodeNbr);
+            $newCodeNbr++;
+
             $newCode = $modid->getCode().'-';
             ($newCodeNbr<10)?$newCode.="0".$newCodeNbr:$newCode.=$newCodeNbr;
+             $logger->info("Generated code : ".$newCode);
             $sequencedeformation->setCode($newCode);
         }
         else{

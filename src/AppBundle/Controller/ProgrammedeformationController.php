@@ -124,7 +124,8 @@ class ProgrammedeformationController extends Controller
             $sequences[$link->getModuleid()->getId()] = $repSequences;
 
             foreach ($repSequences as $key => $seq) {
-                $repActivites = $em->getRepository('AppBundle:Activitedeformation')->findBy(array('sequenceid' => $seq->getId()));
+                // $repActivites = $em->getRepository('AppBundle:Activitedeformation')->findBy(array('sequenceid' => $seq->getId()));
+                $repActivites = array();
                 $activites[$seq->getId()] = $repActivites;
             }
         }
