@@ -19,7 +19,6 @@ class SequencedeformationType extends AbstractType
                 'class' => 'AppBundle:Moduledeformation',
                 'choice_label' => 'code',
                 'choice_value' => 'id',
-                'disabled' => true,
             ))
             ->add('intitule')
             ->add('description')

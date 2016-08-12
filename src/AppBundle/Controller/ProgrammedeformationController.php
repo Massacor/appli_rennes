@@ -55,7 +55,7 @@ class ProgrammedeformationController extends Controller
             $em->persist($programmedeformation);
             $em->flush();
 
-            return $this->redirectToRoute('programme_show', array('id' => $programmedeformation->getId()));
+            return $this->redirectToRoute('programme_show', array('progid' => $programmedeformation->getId()));
         }
 
         return $this->render('programmedeformation/new.html.twig', array(
