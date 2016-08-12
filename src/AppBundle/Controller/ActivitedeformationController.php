@@ -84,8 +84,10 @@ class ActivitedeformationController extends Controller
         $activitedeformation->setSequenceid($seqid);
         $activitedeformation->setCode($seqid->getCode().'-');
         
+        $opt = array('attr' =>array('moduleid' => $modid->getId()));
 
-        $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation);
+
+        $form = $this->createForm('AppBundle\Form\ActivitedeformationType', $activitedeformation, $opt);
 
         $form->handleRequest($request);
 
@@ -159,7 +161,10 @@ class ActivitedeformationController extends Controller
         $this->generateBreadcrumb($progid, $modid, $seqid, $actid);
 
         $deleteForm = $this->createDeleteForm($progid, $modid, $seqid, $actid);
-        $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $actid);
+
+        $opt = array('attr' =>array('moduleid' => $modid->getId()));
+
+        $editForm = $this->createForm('AppBundle\Form\ActivitedeformationType', $actid, $opt);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
