@@ -49,9 +49,7 @@ class ModuledeformationController extends Controller
     public function indexAction(Programmedeformation $progid)
     {
         // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Home", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem("Modules index");
+        $this->generateBreadcrumb($progid, "Index");
 
         $em = $this->getDoctrine()->getManager();
         $moduledeformations = $em->getRepository('AppBundle:Moduledeformation')->findAll();
@@ -71,9 +69,7 @@ class ModuledeformationController extends Controller
     public function newAction(Request $request, Programmedeformation $progid)
     {
          // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem( $progid->getIntitule(), $this->get("router")->generate("programme_show", array('progid' => $progid->getId())));
-        $breadcrumbs->addItem("New module");
+        $this->generateBreadcrumb($progid, "Nouveau Module");
 
         $moduledeformation = new Moduledeformation();
         $form = $this->createForm('AppBundle\Form\ModuledeformationType', $moduledeformation);
@@ -114,10 +110,7 @@ class ModuledeformationController extends Controller
     {
        
          // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-      
-        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array('progid' => $progid->getId())));
-        $breadcrumbs->addItem($modid->getCode());
+        $this->generateBreadcrumb($progid, $modid);
 
         $deleteForm = $this->createDeleteForm($progid, $modid);
 
@@ -142,9 +135,7 @@ class ModuledeformationController extends Controller
     public function editAction(Request $request, Programmedeformation $progid, Moduledeformation $modid)
     {
          // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array('progid' => $progid->getId())));
-        $breadcrumbs->addItem($modid->getCode());
+        $this->generateBreadcrumb($progid, $modid);
 
         $deleteForm = $this->createDeleteForm($progid, $modid);
         $editForm = $this->createForm('AppBundle\Form\ModuledeformationType', $modid);
@@ -214,5 +205,26 @@ class ModuledeformationController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /*
+    * Generate Breadcrumb
+    */
+    private function generateBreadcrumb(Programmedeformation $prog, $module){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        if(!is_null($prog)){
+            $breadcrumbs->addItem($prog->getIntitule(), $this->get("router")->generate("programme_show", array('progid'=>$prog->getId())));
+            if($module instanceof Moduledeformation){
+                $breadcrumbs->addItem($module->getCode(), $this->get("router")->generate("module_show", array('progid'=>$prog->getId(), 'modid'=>$module->getId())));
+            }
+             
+            else if(!is_null($module)){
+                $breadcrumbs->addItem($module);
+            }
+        }else{
+            $logger = $this->get('logger');
+            $logger->error('Undefined breadcrumb');
+        }
+
     }
 }

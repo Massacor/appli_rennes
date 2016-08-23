@@ -51,10 +51,7 @@ class SequencedeformationController extends Controller
     public function indexAction(Programmedeformation $progid, Moduledeformation $modid)
     {
         // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array('progid' => $progid->getId())));
-        $breadcrumbs->addItem("Modules index", $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid' => $progid->getId())));
-         $breadcrumbs->addItem("Sequence index");
+        $this->generateBreadcrumb($progid,$modid,"Index");
 
         $em = $this->getDoctrine()->getManager();
 
@@ -81,27 +78,40 @@ class SequencedeformationController extends Controller
         $sequencedeformation = new Sequencedeformation();
 
          // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
-            'progid'=>$progid->getId())));
+        $this->generateBreadcrumb($progid,$modid,"Nouvelle séquence");
 
         //Predefine values
         $sequencedeformation->setModuleid($modid);
-        $sequencedeformation->setCode($modid->getCode().'-');
 
-        //Manage breadcrumb
-        $breadcrumbs->addItem($modid->getCode(), $this->get("router")->generate("module_show", array(
-            "modid"=> $modid->getId(),
-            'progid' => $progid->getId(),
-            )));
+        $query = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT s
+            FROM AppBundle:Sequencedeformation s
+            WHERE s.code like :code
+            ORDER BY s.code DESC'
+        )->setParameter('code', $modid->getCode().'-%');
 
-        // else{
-        //     $breadcrumbs->addItem("Module index", $this->get("router")->generate("module_super_index"));
-        //     $logger->error('Module ID should always be predefined.');
-        // }
+        $sequences = $query->getResult();
+        if(count($sequences)>0){
+            $elem = 0;
+            do {
+                $aTmpCode = explode('-', $sequences[$elem]->getCode());
+                $newCodeNbr = $aTmpCode[count($aTmpCode)-1];
+                $elem++;
+                $logger->info("Found newCodeNbr : ".$newCodeNbr );
+            } while ( !is_numeric($newCodeNbr) && $elem < count($sequences));
+            $newCodeNbr=intval($newCodeNbr);
+            $newCodeNbr++;
+
+            $newCode = $modid->getCode().'-';
+            ($newCodeNbr<10)?$newCode.="0".$newCodeNbr:$newCode.=$newCodeNbr;
+             $logger->info("Generated code : ".$newCode);
+            $sequencedeformation->setCode($newCode);
+        }
+        else{
+            $sequencedeformation->setCode($modid->getCode().'-');
+        }
 
 
-        $breadcrumbs->addItem("New sequence");
 
         $form = $this->createForm('AppBundle\Form\SequencedeformationType', $sequencedeformation);
 
@@ -135,15 +145,8 @@ class SequencedeformationController extends Controller
      */
     public function showAction(Programmedeformation $progid, Moduledeformation  $modid,Sequencedeformation $seqid)
     {
-        
-        $log = $this->get('logger');
-        $log->info('pouet');
         // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-         $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
-            'progid'=>$progid->getId())));
-        $breadcrumbs->addItem($modid->getCode(), $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid'=>$progid->getId())));
-        $breadcrumbs->addItem($seqid->getCode(), $this->get("router")->generate("sequence_show", array('seqid'=>$seqid->getId(), 'modid'=>$modid->getId(), 'progid'=>$progid->getId())));
+        $this->generateBreadcrumb($progid,$modid, $seqid);
 
         $deleteForm = $this->createDeleteForm($progid, $modid, $seqid);
 
@@ -168,11 +171,7 @@ class SequencedeformationController extends Controller
     public function editAction(Request $request, Programmedeformation $progid, Moduledeformation $modid,Sequencedeformation $seqid)
     {
         // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
-            'progid'=>$progid->getId())));
-        $breadcrumbs->addItem($seqid->getModuleid(), $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid'=>$progid->getId())));
-        $breadcrumbs->addItem($seqid->getCode(), $this->get("router")->generate("sequence_show", array('seqid'=>$seqid->getId(), 'modid'=>$modid->getId(), 'progid'=>$progid->getId())));
+        $this->generateBreadcrumb($progid,$modid, $seqid);
 
         $deleteForm = $this->createDeleteForm($progid, $modid, $seqid);
         $editForm = $this->createForm('AppBundle\Form\SequencedeformationType', $seqid);
@@ -208,11 +207,7 @@ class SequencedeformationController extends Controller
     public function deleteAction(Request $request,Programmedeformation $progid, Moduledeformation $modid, Sequencedeformation $seqid)
     {
         // Manage Breadcrumbs
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem($progid->getIntitule(), $this->get("router")->generate("programme_show", array(
-            'progid'=>$progid->getId())));
-        $breadcrumbs->addItem($seqid->getModuleid(), $this->get("router")->generate("module_show", array('modid'=>$modid->getId(), 'progid'=>$progid->getId())));
-        $breadcrumbs->addItem($seqid->getCode(), $this->get("router")->generate("sequence_show", array('seqid'=>$seqid->getId(), 'modid'=>$modid->getId(), 'progid'=>$progid->getId())));
+        $this->generateBreadcrumb($progid,$modid, $seqid);
 
         $form = $this->createDeleteForm($progid, $modid, $seqid);
         $form->handleRequest($request);
@@ -257,5 +252,29 @@ class SequencedeformationController extends Controller
             $res[$sequence->getId()] = $sequence->getCode();
         }
         return new ArrayChoiceList($res);
-   }
+    }
+
+    /*
+    * Generate Breadcrumb
+    */
+    private function generateBreadcrumb(Programmedeformation $prog, Moduledeformation $module, $seq){
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        if(!is_null($prog)){
+            $breadcrumbs->addItem($prog->getIntitule(), $this->get("router")->generate("programme_show", array('progid'=>$prog->getId())));
+            if(!is_null($module)){
+                $breadcrumbs->addItem($module->getCode(), $this->get("router")->generate("module_show", array('progid'=>$prog->getId(), 'modid'=>$module->getId())));
+                if($seq instanceof Sequencedeformation){
+                    $breadcrumbs->addItem($seq->getCode(), $this->get("router")->generate("sequence_show", array('progid'=>$prog->getId(), 'modid'=>$module->getId(), 'seqid'=>$seq->getId())));
+                }
+                else if(!is_null($seq)){
+                    $breadcrumbs->addItem($seq);
+                }
+                
+            }
+        }else{
+            $logger = $this->get('logger');
+            $logger->error('Undefined breadcrumb');
+        }
+
+    }
 }

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\ORM\EntityRepository;
 
 class ActivitedeformationType extends AbstractType
 {
@@ -17,13 +18,18 @@ class ActivitedeformationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $moduleId = $options['attr']['moduleid'];
         $builder
             ->add('sequenceid', EntityType::class, array(
                 'class' => 'AppBundle:Sequencedeformation',
                 'choice_label' => 'code',
                 'choice_value' => 'id',
-                'disabled' => true,
                 'label' => 'Séquence',
+                'query_builder' => function (EntityRepository $er) use ($moduleId) {
+                                        return $er->createQueryBuilder('s')
+                                            ->where('s.moduleid = ?1')
+                                            ->setParameter(1, $moduleId);
+                                    }
             ))
             ->add('intitule')
             ->add('code')
@@ -57,7 +63,8 @@ class ActivitedeformationType extends AbstractType
     {
 
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Activitedeformation'
+            'data_class' => 'AppBundle\Entity\Activitedeformation',
+            'attr' => array('moduleid' => null),
         ));
     }
 }
