@@ -1,18 +1,22 @@
-//The colours
+// - - - - - - - Bootstrap includes
+@import bootstrap-custom
+
+
+//-- The colours
 
 $lightgrey: whitesmoke
 $primary_color: rgb(36,136,143)
 $secondary_color: rgb(237,151,103)
 $nice_blue: #2a3f54
 
-//Typography
+//-- Typography
 
 $primary_font: Gotham, sans-serif
 $secondary_font: Krafstoff, sans-serif
 
 
 
-// Here is the mixin code for the font-face in sass.
+//-- Here is the mixin code for the font-face in sass.
 @import font-face
 
 @include font-face("Gotham", "../fonts/GOTHAM/GOTHAM-LIGTH_0")
@@ -20,21 +24,43 @@ $secondary_font: Krafstoff, sans-serif
 
 
 
-// My code start here
+//-- My code start here
+
+//-- General reseting and background color implementation
 * 
 	padding: 0 !important
 
+
+h1 h2 h3 
+	margin-top: 0px !important
+
 body 
 	margin: 0
+	font-style: $primary_font
+	background-color: $secondary_color
 
 
 
 
-//Side partie et son style
+
+
+
+
+
+
+
+
+
+
+//-- left style css style
 .sidebar 
 	background-color: $nice_blue
-	height: 653px
-	color: white
+	height: 700px
+	color: $lightgrey
+	display: block
+	position: fixed
+	left: 0
+	top: 0
 
 p.welcome
 	font-size: 1.25em
@@ -48,7 +74,7 @@ div.user_image
 
 
 
-//-- navbarre du side
+//-- navbar side
 
 nav.base_nav
 	margin-top: 5%
@@ -67,17 +93,52 @@ nav.base_nav
 
 
 
-.main-part 
-	background-color: $secondary_color
-	height: 653px
 
 
+
+
+
+
+
+//-- Main part of the dashboard CSS
+.main-part
+	float: right
+	
+
+
+
+//-- Status bar at the top of the dashboard
 .status_bar 
 	background-color: $lightgrey
-	height: 10%
+	height: 8%
+	position: fixed
+	top: 0
+	right: 0
+
+	h2
+		font-size: 1.5em
+		float: right
+		margin-right: 2%
+		margin-top: 1%
 
 
 
 
-// - - - - - - - Bootstrap includes
-@import bootstrap-custom
+//-- Box that will be generated automaciatly, with various height
+.box
+	background-color: $lightgrey
+	margin-top: 2.5%
+	margin-left: 5%
+	margin-bottom: 2.5%
+
+.box-medium
+	@extend .box
+	height: 300px
+
+.box-title
+	width: 100%
+	height: 20px
+	border-bottom: 2px grey solid
+
+.first-box
+	margin-top: 10%
