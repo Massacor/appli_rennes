@@ -31,9 +31,6 @@ $secondary_font: Krafstoff, sans-serif
 	padding: 0 !important
 
 
-h1 h2 h3 
-	margin-top: 0px !important
-
 body 
 	margin: 0
 	font-style: $primary_font
@@ -96,21 +93,10 @@ nav.base_nav
 
 
 
-
-
-
-
-//-- Main part of the dashboard CSS
-.main-part
-	float: right
-	
-
-
-
 //-- Status bar at the top of the dashboard
 .status_bar 
 	background-color: $lightgrey
-	height: 8%
+	height: 50px
 	position: fixed
 	top: 0
 	right: 0
@@ -124,21 +110,48 @@ nav.base_nav
 
 
 
+
+
+
+
+
+
+//-- Main part of the dashboard CSS
+.main-part
+	float: right
+
+
 //-- Box that will be generated automaciatly, with various height
 .box
 	background-color: $lightgrey
 	margin-top: 2.5%
-	margin-left: 5%
-	margin-bottom: 2.5%
+	margin-bottom: 5%
+	margin-left: 4%
+
+.first-box
+	margin-top: 10%
 
 .box-medium
 	@extend .box
 	height: 300px
 
+.box-big
+	@extend .box
+	height: 500px
+
 .box-title
 	width: 100%
-	height: 20px
+	height: 40px
 	border-bottom: 2px grey solid
 
-.first-box
-	margin-top: 10%
+	h3
+		margin-top: 2% 
+		margin-left: 5%
+
+		span 
+			font-size: 0.65em
+			margin-left: 2%
+		
+
+
+
