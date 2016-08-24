@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="../assets/stylesheets/style.css">
-    <script src="../assets/javascripts/bootstrap.min.js"></script>
     <script src="../assets/javascripts/jquery/jquery-3.1.0.min.js"></script>
+    <script src="../assets/javascripts/jquery-migrate.js"></script>
+    <script src="../assets/javascripts/moment.min.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/style.css">
+    <link rel="stylesheet" href="../assets/stylesheets/daterangepicker.css">
+    <script src="../assets/javascripts/daterangepicker.js"></script>
+    <script src="../assets/javascripts/bootstrap.js"></script>
+    <script src="../assets/javascripts/script.js"></script>
     <meta charset="utf-8">
     <meta author="Assistant formateur &amp; lead formateur">
     <title>TrainingORM v0.1</title>
@@ -14,7 +19,7 @@
         <div class="sidebar col-md-2"> 
           <p class="welcome">Bonjour [formateur], bienvenue sur votre dashboard</p>
           <div class="user_image"></div>
-          <!--here is the navbar of the dashboard-->
+          <!--here is the the navbar of the dashboard-->
           <nav class="base_nav">
             <ul>
               <li> <a href="#">Planning</a></li>
@@ -23,8 +28,20 @@
             </ul>
           </nav>
         </div>
-        <div class="main-part col-md-10">
-          <div class="status_bar col-md-12"></div>
+        <div class="pull-right col-md-10">
+          <div class="box-big col-md-11 offset-1 first-box">
+            <div class="box-title">
+              <h3>Planning de la semaine <span>sub title</span>
+                <div id="reportrange" class="weekspicker pull-right"><i class="glyphicon glyphicon-calendar fa fa-calendar"><span></span><b class="caret"></b></i></div>
+              </h3>
+            </div>
+          </div>
+          <div class="box-medium col-md-11 offset-1"></div>
+          <div class="box-medium col-md-11 offset-1"></div>
+        </div>
+        <div class="status_bar col-md-10">
+          <div class="user_imageXS"></div>
+          <h2>[Prénom] [Nom]</h2>
         </div>
       </main>
     </div>
