@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Urldeformation list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Activityid</th>
+                <th>Url</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for urldeformation in urldeformations %}
+            <tr>
+                <td><a href="{{ path('urldeformation_show', { 'id': urldeformation.id }) }}">{{ urldeformation.activityid }}</a></td>
+                <td>{{ urldeformation.url }}</td>
+                <td>{{ urldeformation.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('urldeformation_show', { 'id': urldeformation.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('urldeformation_edit', { 'id': urldeformation.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('urldeformation_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

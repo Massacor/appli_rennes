@@ -49,6 +49,18 @@
         </tbody>
     </table>
 
+    <h2> Liens </h2>
+    <ul>
+        {% for url in urls %}
+            <li>
+                <a href='{{url.url}}'>{{url.url}}</a>
+            </li>
+        {% endfor %}
+        <li>
+            <a href="{{ path('urldeformation_new', {'actid' : activitedeformation.id}) }}">Ajouter un lien</a>
+        </li>   
+    </ul>
+
     <h2> Outils requis </h2>
     <ul>
         {% for tool in outils %}

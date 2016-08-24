@@ -151,6 +151,10 @@ class ActivitedeformationController extends Controller
             "activiteid" => $actid->getId()
         ));
 
+        $urls = $em->getRepository('AppBundle:Urldeformation')->findBy(array(
+            "activityid" => $actid->getId()
+        ));
+
         $tools = array();
         foreach ($links as $key => $link) {
            array_push($tools , $em->getRepository('AppBundle:Outildeformation')->find($link->getOutilid()));
@@ -161,6 +165,7 @@ class ActivitedeformationController extends Controller
             'module'=> $modid,
             'sequence' => $seqid,
             'outils' => $tools,
+            'urls' => $urls,
             'delete_form' => $deleteForm->createView(),
         ));
     }

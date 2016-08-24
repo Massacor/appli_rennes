@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Urldeformation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Activityid</th>
+                <td>{{ urldeformation.activityid }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ urldeformation.url }}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ urldeformation.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('urldeformation_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('urldeformation_edit', { 'id': urldeformation.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

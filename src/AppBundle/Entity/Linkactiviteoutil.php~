@@ -81,3 +81,4 @@ class Linkactiviteoutil
         return $this->activiteid;
     }
 }
+
