@@ -33,7 +33,6 @@ $secondary_font: Krafstoff, sans-serif
 
 body 
 	margin: 0
-	font-style: $primary_font
 	background-color: $secondary_color
 
 
@@ -65,9 +64,11 @@ p.welcome
 	margin-top: 10%
 
 div.user_image
-	background: url('../images/profile1.jpg') no-repeat
-	height: 10%
-	width: 5%
+	background: url('../images/profile1.jpeg') no-repeat center
+	height: 12%
+	width: 55%
+	margin: 10% auto
+	border-radius: 100%
 
 
 
@@ -76,7 +77,7 @@ div.user_image
 nav.base_nav
 	margin-top: 5%
 	width: 100%
-	height: 10%	
+	height: 50%	
 	background-color: $primary_color
 	li
 		list-style-type: none
@@ -137,10 +138,23 @@ nav.base_nav
 .weekspicker
 	cursor: pointer
 	background: #fff
-	width: 40%
+	width: 29%
 	border: 1px solid #ccc
+	margin-right: 2%
+	padding-bottom: 2%
+	font-size: 0.9em
+	text-align: right
 
+i.datepick
+	font-size: 0.75em
+	margin-left: 0
 
+b.caret
+	margin-left: 2%
+	margin-right: 2%
+
+.calendar-margin
+	margin-left: 3%
 
 
 //-- Status bar at the top of the dashboard

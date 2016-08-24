@@ -38,8 +38,8 @@
         this.dateLimit = false;
         this.autoApply = false;
         this.singleDatePicker = false;
-        this.showDropdowns = false;
-        this.showWeekNumbers = false;
+        this.showDropdowns = true;
+        this.showWeekNumbers = true;
         this.showISOWeekNumbers = false;
         this.showCustomRangeLabel = true;
         this.timePicker = false;
@@ -67,9 +67,9 @@
             direction: 'ltr',
             format: 'MM/DD/YYYY',
             separator: ' - ',
-            applyLabel: 'Apply',
-            cancelLabel: 'Cancel',
-            weekLabel: 'W',
+            applyLabel: 'Valider',
+            cancelLabel: 'Annuler',
+            weekLabel: 'S',
             customRangeLabel: 'Custom Range',
             daysOfWeek: moment.weekdaysMin(),
             monthNames: moment.monthsShort(),
@@ -99,7 +99,7 @@
                       '<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
                       '<div class="calendar-time">' +
-                        '<div></div>' +
+                        '<div class="calendar-margin"></div>' +
                         '<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
                       '</div>' +
                     '</div>' +
@@ -110,7 +110,7 @@
                       '<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
                       '<div class="calendar-time">' +
-                        '<div></div>' +
+                        '<div class="calendar-margin"></div>' +
                         '<i class="fa fa-clock-o glyphicon glyphicon-time"></i>' +
                       '</div>' +
                     '</div>' +
