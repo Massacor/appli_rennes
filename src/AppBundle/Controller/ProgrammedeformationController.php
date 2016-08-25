@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Programmedeformation;
 use AppBundle\Form\ProgrammedeformationType;
-
+use AppBundle\Tools\CustomSort;
 /**
  * Programmedeformation controller.
  *
@@ -86,6 +86,9 @@ class ProgrammedeformationController extends Controller
             $module = $em->getRepository('AppBundle:Moduledeformation')->find($link->getModuleid());
             array_push($modules , $module);
         }
+
+        $customSort = new CustomSort();
+        $modules = $customSort->sortObjectArrayByField($modules, 'pos');
 
         return $this->render('programmedeformation/show.html.twig', array(
             'programmedeformation' => $progid,

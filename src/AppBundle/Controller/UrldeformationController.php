@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Urldeformation;
 use AppBundle\Form\UrldeformationType;
+use AppBundle\Entity\Programmedeformation;
+use AppBundle\Entity\Moduledeformation;
+use AppBundle\Entity\Sequencedeformation;
 use AppBundle\Entity\Activitedeformation;
 
 /**
@@ -37,10 +40,10 @@ class UrldeformationController extends Controller
     /**
      * Creates a new Urldeformation entity.
      *
-     * @Route("/new/{actid}", name="urldeformation_new")
+     * @Route("{progid}/{modid}/{seqid}/{actid}/new/", name="urldeformation_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, Activitedeformation $actid)
+    public function newAction(Request $request, Programmedeformation $progid, Moduledeformation $modid, Sequencedeformation $seqid, Activitedeformation $actid)
     {
         $urldeformation = new Urldeformation();
         $urldeformation->setActivityid($actid->getId());
@@ -52,11 +55,19 @@ class UrldeformationController extends Controller
             $em->persist($urldeformation);
             $em->flush();
 
-            return $this->redirectToRoute('urldeformation_show', array('id' => $urldeformation->getId()));
+            return $this->redirectToRoute('activite_show', array(
+                'progid' => $progid->getId(),
+                'modid' => $modid->getId(),
+                'seqid' => $seqid->getId(),
+                'actid' => $actid->getId()
+                ));
         }
 
         return $this->render('urldeformation/new.html.twig', array(
             'urldeformation' => $urldeformation,
+            'progid' => $progid->getId(),
+            'modid' => $modid->getId(),
+            'seqid' => $seqid->getId(),
             'form' => $form->createView(),
         ));
     }

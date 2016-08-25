@@ -51,7 +51,8 @@ class ActivitedeformationType extends AbstractType
                     'Sommative' =>  'sommative',
                 ),
                 'required' => false,
-            ));
+            ))
+            ->add('pos');
         
 
     }

@@ -17,6 +17,7 @@ class ProgrammedeformationType extends AbstractType
         $builder
             ->add('intitule')
             ->add('objectif')
+            ->add('pos')
         ;
     }
     

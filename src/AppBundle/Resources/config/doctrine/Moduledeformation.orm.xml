@@ -4,6 +4,12 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="pos" type="integer" column="pos" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
     <field name="code" type="string" column="code" length="20" nullable="false">
       <options>
         <option name="fixed"/>

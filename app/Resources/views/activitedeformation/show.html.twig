@@ -57,7 +57,7 @@
             </li>
         {% endfor %}
         <li>
-            <a href="{{ path('urldeformation_new', {'actid' : activitedeformation.id}) }}">Ajouter un lien</a>
+            <a href="{{ path('urldeformation_new', {'progid':program.id, 'modid':module.id, 'seqid': sequence.id, 'actid': activitedeformation.id}) }}">Ajouter un lien</a>
         </li>   
     </ul>
 

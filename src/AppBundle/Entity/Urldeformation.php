@@ -80,5 +80,33 @@ class Urldeformation
     {
         return $this->id;
     }
-}
+    /**
+     * @var integer
+     */
+    private $pos = '1';
 
+
+    /**
+     * Set pos
+     *
+     * @param integer $pos
+     *
+     * @return Urldeformation
+     */
+    public function setPos($pos)
+    {
+        $this->pos = $pos;
+
+        return $this;
+    }
+
+    /**
+     * Get pos
+     *
+     * @return integer
+     */
+    public function getPos()
+    {
+        return $this->pos;
+    }
+}

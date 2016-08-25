@@ -46,6 +46,12 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="pos" type="integer" column="pos" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
     <many-to-one field="sequenceid" target-entity="Sequencedeformation" fetch="LAZY">
       <join-columns>
         <join-column name="sequenceId" referenced-column-name="id"/>

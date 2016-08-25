@@ -17,6 +17,7 @@ class UrldeformationType extends AbstractType
         $builder
             ->add('activityid')
             ->add('url')
+            ->add('pos')
         ;
     }
     
