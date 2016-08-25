@@ -1,8 +1,8 @@
-// - - - - - - - Bootstrap includes
+// ------------ Bootstrap includes
 @import bootstrap-custom
 
 
-//-- The colours
+//------------- The colours
 
 
 //-Nuancier de blanc à très bleue
@@ -12,14 +12,14 @@ $medium_color: #91AA9D
 $strong_color: #3E606F
 $extra_strong_color: #193441
 
-//-- Typography
+//------------- Typography
 
 $primary_font: Gotham, sans-serif
 $secondary_font: Krafstoff, sans-serif
 
 
 
-//-- Here is the mixin code for the font-face in sass.
+//-------------- Here is the mixin code for the font-face in sass.
 @import font-face
 
 @include font-face("Gotham", "../fonts/GOTHAM/GOTHAM-LIGTH_0")
@@ -27,9 +27,13 @@ $secondary_font: Krafstoff, sans-serif
 
 
 
-//-- My code start here
 
-//-- General reseting and background color implementation
+
+
+
+//---------------- My code start here
+
+//---------------- General reseting and background color implementation
 
 *
 	padding: 0 !important
@@ -46,12 +50,7 @@ body
 
 
 
-
-
-
-
-
-//-- left style css style
+//--------------- left style css style
 .sidebar 
 	background-color: $extra_strong_color
 	height: 700px
@@ -75,7 +74,7 @@ div.user_image
 
 
 
-//-- navbar side
+//---------------- navbar side
 
 nav.base_nav
 	margin-top: 5%
@@ -100,35 +99,38 @@ nav.base_nav
 
 
 
-//-- Main part of the dashboard CSS
+//------------ Main part of the dashboard CSS
 
 
 
-//-- Box that will be generated automaciatly, with various height
+//-------------- Box that will be generated automaciatly, with various height and width
 .container_box
 	margin-bottom: 5%
 	margin-left: 4%
 	float: left
-	margin-top: 6%
-
-.box
-	background-color: $thinny_color
-	margin-top: 4%
-
+	margin-top: 0
 
 .box-medium
 	width: 48%
-	height: 300px
 
-.box-big
+.box-large
 	width: 100%
+
+.box-content
+	background-color: $thinny_color
+
+.box-content-long
 	height: 500px
 
+.box-content-short
+	height: 300px
+
+	
+
 .box-title
-	width: 100%
+	margin-top: 6%
 	height: 50px
 	border-bottom: 2px grey solid
-	cursor: pointer
 	background-color: $medium_color
 	padding-top: 1% !important
 
@@ -139,10 +141,17 @@ nav.base_nav
 		span 
 			font-size: 0.65em
 			margin-left: 2%
-		
+
+i.arrow
+	font-size: 0.75em
+	color: #aaa
+	cursor: pointer
 
 
-//style of the datepicker
+
+
+
+//---------------- style of the datepicker
 .weekspicker
 	cursor: pointer
 	background: #fff
@@ -171,7 +180,7 @@ b.caret
 
 
 
-//-- Status bar at the top of the dashboard
+//----------------- Status bar at the top of the dashboard
 .status_bar 
 	background-color: $strong-color
 	color: $medium_color
