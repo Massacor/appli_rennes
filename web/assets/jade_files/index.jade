@@ -33,15 +33,18 @@ html
 
 
 					.container_box.col-md-11.offset-1
-						.box.box-big
-							.box-title
+						div.box-title
 								h3 Planning de la semaine 
 									span sub title
+									a(data-toggle="collapse" href='#content_box').btn.btn-primary.pull-right Show
 									div(id="reportrange").weekspicker.pull-right
 										i.glyphicon.glyphicon-calendar.fa.fa-calendar.datepick
 										span
 										b.caret
 
+
+						div(id="content_box" aria-expand='true' aria-controls="content_box").box.box-big.collapse
+							
 
 
 					
