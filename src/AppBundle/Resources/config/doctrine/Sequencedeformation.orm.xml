@@ -10,6 +10,12 @@
     <id name="id" type="integer" column="id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="pos" type="integer" column="pos" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
     <field name="intitule" type="string" column="intitule" length="256" nullable="false">
       <options>
         <option name="fixed"/>

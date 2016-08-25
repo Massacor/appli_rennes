@@ -25,6 +25,7 @@ class SequencedeformationType extends AbstractType
             ->add('code')
             ->add('objectif')
             ->add('evaluation')
+            ->add('pos')
         ;
     }
     

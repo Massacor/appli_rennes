@@ -20,6 +20,7 @@ class ModuledeformationType extends AbstractType
             ->add('code')
             ->add('description')
             ->add('prerequis')
+            ->add('pos')
         ;
     }
     

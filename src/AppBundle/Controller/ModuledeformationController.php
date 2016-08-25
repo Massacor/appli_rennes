@@ -116,7 +116,7 @@ class ModuledeformationController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $sequences= $em->getRepository('AppBundle:Sequencedeformation')->findBy(array('moduleid' => $modid->getId()));
+        $sequences= $em->getRepository('AppBundle:Sequencedeformation')->findBy(array('moduleid' => $modid->getId(),), array('code' => 'ASC'));
 
         return $this->render('moduledeformation/show.html.twig', array(
             'module' => $modid,

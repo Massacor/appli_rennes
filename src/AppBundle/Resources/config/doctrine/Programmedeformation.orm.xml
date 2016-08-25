@@ -14,5 +14,11 @@
         <option name="fixed"/>
       </options>
     </field>
+    <field name="pos" type="integer" column="pos" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">1</option>
+      </options>
+    </field>
   </entity>
 </doctrine-mapping>

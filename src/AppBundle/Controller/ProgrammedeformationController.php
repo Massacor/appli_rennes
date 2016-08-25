@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Programmedeformation;
 use AppBundle\Form\ProgrammedeformationType;
-
+use AppBundle\Tools\CustomSort;
 /**
  * Programmedeformation controller.
  *
@@ -87,6 +87,9 @@ class ProgrammedeformationController extends Controller
             array_push($modules , $module);
         }
 
+        $customSort = new CustomSort();
+        $modules = $customSort->sortObjectArrayByField($modules, 'pos');
+
         return $this->render('programmedeformation/show.html.twig', array(
             'programmedeformation' => $progid,
             'modules' => $modules,
@@ -124,8 +127,8 @@ class ProgrammedeformationController extends Controller
             $sequences[$link->getModuleid()->getId()] = $repSequences;
 
             foreach ($repSequences as $key => $seq) {
-                // $repActivites = $em->getRepository('AppBundle:Activitedeformation')->findBy(array('sequenceid' => $seq->getId()));
-                $repActivites = array();
+                 $repActivites = $em->getRepository('AppBundle:Activitedeformation')->findBy(array('sequenceid' => $seq->getId()));
+                //$repActivites = array();
                 $activites[$seq->getId()] = $repActivites;
             }
         }
