@@ -32,7 +32,7 @@
           <div class="container_box col-md-11 offset-1">
             <div class="row">
               <div class="box-large">
-                <div class="box-title">
+                <div class="box-title first_box">
                   <h3>Planning de la semaine <span>sub title</span>
                     <div id="reportrange" class="weekspicker pull-right"><i class="glyphicon glyphicon-calendar fa fa-calendar datepick"></i><span></span><b class="caret"></b></div>
                   </h3>
@@ -40,38 +40,44 @@
                 <div class="box-content box-content-long"></div>
               </div>
             </div>
-            <!--Medium boxes have to be write in descending order in every row of 2 due to pull-right class (which is place in the first child of the row)-->
             <div class="row">
-              <div class="box-medium pull-right">
-                <div class="box-title">
-                  <h3>Test 2<span>sub title</span><i id="content_test2-hide">
-                      <div class="glyphicon glyphicon-chevron-up arrow pull-right"></div></i></h3>
-                </div>
-                <div id="content_test2" class="box-content box-content-short"></div>
-              </div>
               <div class="box-medium">
                 <div class="box-title">
-                  <h3>Test 1<span>sub title</span><i id="content_test1-trigger" class="pull-right glyphicon glyphicon-chevron-up"></i></h3>
+                  <h3>Test 1<span>sub title</span><i id="content_test1-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
                 </div>
                 <div id="content_test1" class="box-content box-content-short"></div>
               </div>
+              <div class="box-medium box-last">
+                <div class="box-title">
+                  <h3>Test 2<span>sub title</span><i id="content_test2-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+                </div>
+                <div id="content_test2" class="box-content box-content-short"></div>
+              </div>
             </div>
             <div class="row">
-              <div class="box-medium pull-right">
+              <div class="box-small">
                 <div class="box-title">
-                  <h3>Test 4<span>sub title</span>
-                    <button id="content_test4-trigger" class="btn btn-primary pull-right">Hide</button>
-                  </h3>
+                  <h3>Test 3<span>sub title</span><i id="content_test3-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+                </div>
+                <div id="content_test3" class="box-content box-content-short"></div>
+              </div>
+              <div class="box-small">
+                <div class="box-title">
+                  <h3>Test 4<span>sub title</span><i id="content_test4-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
                 </div>
                 <div id="content_test4" class="box-content box-content-short"></div>
               </div>
-              <div class="box-medium">
+              <div class="box-small">
                 <div class="box-title">
-                  <h3>Test 3<span>sub title</span>
-                    <button id="content_test3-trigger" class="btn btn-primary pull-right">Hide</button>
-                  </h3>
+                  <h3>Test 5<span>sub title</span><i id="content_test5-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
                 </div>
-                <div id="content_test3" class="box-content box-content-short"></div>
+                <div id="content_test5" class="box-content box-content-short"></div>
+              </div>
+              <div class="box-small box-last">
+                <div class="box-title">
+                  <h3>Test 6<span>sub title</span><i id="content_test6-trigger." class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+                </div>
+                <div id="content_test6" class="box-content box-content-short"></div>
               </div>
             </div>
           </div>

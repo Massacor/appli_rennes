@@ -110,11 +110,27 @@ nav.base_nav
 	float: left
 	margin-top: 0
 
+.box
+	float: left
+	margin-right: 2.5%
+
+.box-last
+	margin-right: 0
+
+.box-small
+	@extend .box
+	width: 23%
+	margin-top: 3%
+
 .box-medium
-	width: 48%
+	@extend .box
+	width: 48.5%
+	margin-top: 3%
 
 .box-large
+	@extend .box
 	width: 100%
+	margin-top: 7%
 
 .box-content
 	background-color: $thinny_color
@@ -125,14 +141,11 @@ nav.base_nav
 .box-content-short
 	height: 300px
 
-	
-
 .box-title
-	margin-top: 6%
 	height: 50px
 	border-bottom: 2px grey solid
 	background-color: $medium_color
-	padding-top: 1% !important
+	padding-top: 12.5px !important
 
 	h3 
 		margin-left: 5%
@@ -144,8 +157,9 @@ nav.base_nav
 
 i.arrow
 	font-size: 0.75em
-	color: #aaa
+	color: $thinny_color
 	cursor: pointer
+	margin-right: 5%
 
 
 

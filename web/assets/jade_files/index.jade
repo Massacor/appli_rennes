@@ -31,12 +31,20 @@ html
 
 				.pull-right.col-md-10
 
+					//-- ====== Basic code for creating a new box ====== 
+						//-- size of your box...
+								.box-title
+									h3 //-- your title here...
+										span sub title
+										i(id='//--box id-trigger here...').glyphicon.glyphicon-chevron-up.arrow.pull-right
+								div(id="//--box id here").box-content.//height of your box here
+
 
 					.container_box.col-md-11.offset-1
 
 						.row
 							.box-large
-								div.box-title
+								.box-title.first_box
 									h3 Planning de la semaine 
 										span sub title
 										div(id="reportrange").weekspicker.pull-right
@@ -45,45 +53,53 @@ html
 											b.caret
 
 								.box-content.box-content-long
-			
-						//Medium boxes have to be write in descending order in every row of 2 due to pull-right class (which is place in the first child of the row)
 
 						.row
-							.box-medium.pull-right
-								.box-title
-									h3 Test 2
-										span sub title
-										i(id="content_test2-hide")
-											.glyphicon.glyphicon-chevron-up.arrow.pull-right
-								div(id="content_test2").box-content.box-content-short
-
-
 							.box-medium
 								.box-title
 									h3 Test 1
 										span sub title
-										i(id='content_test1-trigger').pull-right.glyphicon.glyphicon-chevron-up
-
+										i(id="content_test1-trigger").glyphicon.glyphicon-chevron-up.arrow.pull-right
 								div(id="content_test1").box-content.box-content-short
 
-						.row
-							.box-medium.pull-right
+
+							.box-medium.box-last
 								.box-title
-									h3 Test 4
+									h3 Test 2
 										span sub title
-										button(id='content_test4-trigger').btn.btn-primary.pull-right Hide
+										i(id='content_test2-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
 
-								div(id="content_test4").box-content.box-content-short
+								div(id="content_test2").box-content.box-content-short
 
-							.box-medium
+						.row
+							.box-small
 								.box-title
 									h3 Test 3
 										span sub title
-										button(id='content_test3-trigger').btn.btn-primary.pull-right Hide
-
+										i(id='content_test3-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
 								div(id="content_test3").box-content.box-content-short
 
+							.box-small
+								.box-title
+									h3 Test 4
+										span sub title
+										i(id='content_test4-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
 
+								div(id="content_test4").box-content.box-content-short
+
+							.box-small
+								.box-title
+									h3 Test 5
+										span sub title
+										i(id='content_test5-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+								div(id="content_test5").box-content.box-content-short
+
+							.box-small.box-last
+								.box-title
+									h3 Test 6
+										span sub title
+										i(id='content_test6-trigger.').glyphicon.glyphicon-chevron-up.arrow.pull-right
+								div(id="content_test6").box-content.box-content-short
 
 				.status_bar.col-md-10
 
