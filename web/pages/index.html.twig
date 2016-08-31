@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../assets/javascripts/jquery/jquery-3.0.0.min.js"></script>
+    <script src="../assets/javascripts/jquery-migrate.js"></script>
+    <script src="../assets/javascripts/moment.min.js"></script>
+    <link rel="stylesheet" href="../assets/stylesheets/style.css">
+    <link rel="stylesheet" href="../assets/stylesheets/daterangepicker.css">
+    <script src="../assets/javascripts/bootstrap.js"></script>
+    <script src="../assets/javascripts/daterangepicker.js"></script>
+    <script src="../assets/javascripts/script.js"></script>
+    <meta charset="utf-8">
+    <meta author="Assistant formateur &amp; lead formateur">
+    <title>TrainingORM v0.1</title>
+  </head>
+</html>
+<body>
+  <div class="container-fluid">
+    <main>
+      <div class="sidebar col-md-2"> 
+        <p class="welcome">Bonjour [formateur], bienvenue sur votre dashboard</p>
+        <div class="user_image"></div>
+        <!--here is the the navbar of the dashboard-->
+        <nav class="base_nav">
+          <ul>
+            <li> <a href="index.html.twig"> <i class="glyphicon glyphicon-home"> </i><span>Home</span></a></li>
+            <li> <a href="#"> <i class="glyphicon glyphicon-calendar"></i><span>Programme de formation</span></a></li>
+            <li><a href="#"><i class="glyphicon glyphicon-signal"> </i><span>Reporting</span></a></li>
+            <li><a href="modules.html.twig"><i class="glyphicon glyphicon-list"></i><span>Modules</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="content_container">
+        <div class="container_box">
+          <div class="row">
+            <div class="box-large">
+              <div class="box-title">
+                <h3>Planning de la semaine <span>sub title</span>
+                  <div id="reportrange" class="weekspicker pull-right"><i class="glyphicon glyphicon-calendar fa fa-calendar datepick"></i><span></span><b class="caret"></b></div>
+                </h3>
+              </div>
+              <div class="box-content box-content-long"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="box-medium">
+              <div class="box-title">
+                <h3>Test 1<span>sub title</span><i id="content_test1-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+              </div>
+              <div id="content_test1" class="box-content box-content-short"></div>
+            </div>
+            <div class="box-medium box-last">
+              <div class="box-title">
+                <h3>Test 2<span>sub title</span><i id="content_test2-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+              </div>
+              <div id="content_test2" class="box-content box-content-short"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="box-small">
+              <div class="box-title">
+                <h3>Test 3<span>sub title</span><i id="content_test3-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+              </div>
+              <div id="content_test3" class="box-content box-content-short"></div>
+            </div>
+            <div class="box-small">
+              <div class="box-title">
+                <h3>Test 4<span>sub title</span><i id="content_test4-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+              </div>
+              <div id="content_test4" class="box-content box-content-short"></div>
+            </div>
+            <div class="box-small">
+              <div class="box-title">
+                <h3>Test 5<span>sub title</span><i id="content_test5-trigger" class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+              </div>
+              <div id="content_test5" class="box-content box-content-short"></div>
+            </div>
+            <div class="box-small box-last">
+              <div class="box-title">
+                <h3>Test 6<span>sub title</span><i id="content_test6-trigger." class="glyphicon glyphicon-chevron-up arrow pull-right"></i></h3>
+              </div>
+              <div id="content_test6" class="box-content box-content-short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="status_bar col-md-10">
+      <div class="user_imageXS"></div>
+      <h2>[Prénom] [Nom]</h2>
+    </div>
+  </div>
+</body>

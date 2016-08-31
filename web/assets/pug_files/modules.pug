@@ -1,0 +1,25 @@
+include includes/_head.pug
+
+body
+	.container-fluid
+		main
+			include includes/_sidebar.pug
+
+			.content_container
+
+				.container_box
+
+					.row
+						.box-large
+							.box-title
+								h3 Listes des modules
+									span par ordre décroissant
+							.box-content.box-content-long
+								.modules-list
+									{% for programmedeformation in programmedeformations %}
+										p {{ programmedeformation.intitule}}
+									{% endfor %}
+								.modules-content
+
+
+			include includes/_topbar.pug

@@ -2,20 +2,10 @@
 @import bootstrap-custom
 
 
-//------------- The colours
+//------------- The specs
 
+@import style-specs
 
-//-Nuancier de blanc à très bleue
-$thinny_color: #FCFFF5
-$light_color: #D1DBBD
-$medium_color: #91AA9D
-$strong_color: #3E606F
-$extra_strong_color: #193441
-
-//------------- Typography
-
-$primary_font: Gotham, sans-serif
-$secondary_font: Krafstoff, sans-serif
 
 
 
@@ -117,15 +107,19 @@ nav.base_nav
 
 
 //------------ Main part of the dashboard CSS
+.content_container
+	@extend .pull-right
+	@extend .col-md-10
 
-
-
-//-------------- Box that will be generated automaciatly, with various height and width
 .container_box
-	margin-bottom: 5%
+	@extend .col-md-11
+	margin-bottom: 3%
 	margin-left: 4%
 	float: left
 	margin-top: 0
+	
+
+//-------------- Box that will be generated automaciatly, with various height and width
 
 .box
 	float: left
@@ -226,3 +220,24 @@ b.caret
 		float: right
 		margin-right: 2%
 		margin-top: 1%
+
+
+
+
+
+
+
+//--------------- CSS of modules.html
+
+.modules-list
+	display: inline-block
+	float: left
+	height: 100%
+	width: 25%
+	border-right: 2px solid $medium-color
+	
+
+.modules-content
+	display: inline-block
+	height: 100%
+	width: 75%

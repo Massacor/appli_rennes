@@ -1,0 +1,78 @@
+include includes/_head
+
+body
+	.container-fluid
+		main
+			include includes/_sidebar
+
+			.content_container
+				//-- ====== Basic code for creating a new box ====== 
+					//-- width of your box...
+							.box-title
+								h3 //-- your title here...
+									span sub title
+									i(id='//--box id-trigger here...').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="//--box id here").box-content.//height of your box content here
+				.container_box
+
+					.row
+						.box-large
+							.box-title
+								h3 Planning de la semaine 
+									span sub title
+									div(id="reportrange").weekspicker.pull-right
+										i.glyphicon.glyphicon-calendar.fa.fa-calendar.datepick
+										span
+										b.caret
+
+							.box-content.box-content-long
+
+					.row
+						.box-medium
+							.box-title
+								h3 Test 1
+									span sub title
+									i(id="content_test1-trigger").glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test1").box-content.box-content-short
+
+
+						.box-medium.box-last
+							.box-title
+								h3 Test 2
+									span sub title
+									i(id='content_test2-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+
+							div(id="content_test2").box-content.box-content-short
+
+					.row
+						.box-small
+							.box-title
+								h3 Test 3
+									span sub title
+									i(id='content_test3-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test3").box-content.box-content-short
+
+						.box-small
+							.box-title
+								h3 Test 4
+									span sub title
+									i(id='content_test4-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+
+							div(id="content_test4").box-content.box-content-short
+
+						.box-small
+							.box-title
+								h3 Test 5
+									span sub title
+									i(id='content_test5-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test5").box-content.box-content-short
+
+						.box-small.box-last
+							.box-title
+								h3 Test 6
+									span sub title
+									i(id='content_test6-trigger.').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test6").box-content.box-content-short
+
+		include includes/_topbar
+		
