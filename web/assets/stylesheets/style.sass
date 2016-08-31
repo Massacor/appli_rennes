@@ -77,18 +77,35 @@ div.user_image
 //---------------- navbar side
 
 nav.base_nav
-	margin-top: 5%
+	margin-top: 30%
 	width: 100%
-	height: 50%	
-	background-color: $strong_color
-	li
-		list-style-type: none
-	a
-		text-decoration: none
-		color: white
-	a:hover 
-		color: white
-		text-decoration: none
+	height: 50%
+
+	ul
+		height: 100%
+		li
+			list-style-type: none
+			margin-top: 5%
+			height: 10%
+			background-color: $strong_color
+		a
+			margin: 0 auto
+			text-decoration: none
+			color: $thinny_color
+			cursor: pointer
+			padding-top: 16px !important
+			font-size: 1.1em
+
+			i 
+				margin-left: 3%
+			span
+				margin-left: 8% 
+
+		a:hover 
+			color: $thinny_color
+			text-decoration: none
+		a:active
+			border: 1px solid $extra-strong-color
 
 
 

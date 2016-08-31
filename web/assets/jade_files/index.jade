@@ -1,108 +1,78 @@
-doctype
-html
-	head
-		include includes/_head
+include includes/_head
 
-	body
-		.container-fluid
-			main
+body
+	.container-fluid
+		main
+			include includes/_sidebar
 
-				.sidebar.col-md-2 
+			.pull-right.col-md-10
+				//-- ====== Basic code for creating a new box ====== 
+					//-- width of your box...
+							.box-title
+								h3 //-- your title here...
+									span sub title
+									i(id='//--box id-trigger here...').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="//--box id here").box-content.//height of your box content here
+				.container_box.col-md-11.offset-1
 
-				
-					p.welcome Bonjour [formateur], bienvenue sur votre dashboard
+					.row
+						.box-large
+							.box-title.first_box
+								h3 Planning de la semaine 
+									span sub title
+									div(id="reportrange").weekspicker.pull-right
+										i.glyphicon.glyphicon-calendar.fa.fa-calendar.datepick
+										span
+										b.caret
 
-					.user_image
+							.box-content.box-content-long
 
-					//here is the the navbar of the dashboard
-					nav.base_nav
-						ul
-
-							li 
-								a(href='#') Planning
-						
-							li 
-								a(href='#') Programme de formation
-							
-							li
-								a(href='#') Reporting
-
-
-
-				.pull-right.col-md-10
-
-					//-- ====== Basic code for creating a new box ====== 
-						//-- size of your box...
-								.box-title
-									h3 //-- your title here...
-										span sub title
-										i(id='//--box id-trigger here...').glyphicon.glyphicon-chevron-up.arrow.pull-right
-								div(id="//--box id here").box-content.//height of your box here
+					.row
+						.box-medium
+							.box-title
+								h3 Test 1
+									span sub title
+									i(id="content_test1-trigger").glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test1").box-content.box-content-short
 
 
-					.container_box.col-md-11.offset-1
+						.box-medium.box-last
+							.box-title
+								h3 Test 2
+									span sub title
+									i(id='content_test2-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
 
-						.row
-							.box-large
-								.box-title.first_box
-									h3 Planning de la semaine 
-										span sub title
-										div(id="reportrange").weekspicker.pull-right
-											i.glyphicon.glyphicon-calendar.fa.fa-calendar.datepick
-											span
-											b.caret
+							div(id="content_test2").box-content.box-content-short
 
-								.box-content.box-content-long
+					.row
+						.box-small
+							.box-title
+								h3 Test 3
+									span sub title
+									i(id='content_test3-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test3").box-content.box-content-short
 
-						.row
-							.box-medium
-								.box-title
-									h3 Test 1
-										span sub title
-										i(id="content_test1-trigger").glyphicon.glyphicon-chevron-up.arrow.pull-right
-								div(id="content_test1").box-content.box-content-short
+						.box-small
+							.box-title
+								h3 Test 4
+									span sub title
+									i(id='content_test4-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
 
+							div(id="content_test4").box-content.box-content-short
 
-							.box-medium.box-last
-								.box-title
-									h3 Test 2
-										span sub title
-										i(id='content_test2-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+						.box-small
+							.box-title
+								h3 Test 5
+									span sub title
+									i(id='content_test5-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test5").box-content.box-content-short
 
-								div(id="content_test2").box-content.box-content-short
+						.box-small.box-last
+							.box-title
+								h3 Test 6
+									span sub title
+									i(id='content_test6-trigger.').glyphicon.glyphicon-chevron-up.arrow.pull-right
+							div(id="content_test6").box-content.box-content-short
 
-						.row
-							.box-small
-								.box-title
-									h3 Test 3
-										span sub title
-										i(id='content_test3-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
-								div(id="content_test3").box-content.box-content-short
-
-							.box-small
-								.box-title
-									h3 Test 4
-										span sub title
-										i(id='content_test4-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
-
-								div(id="content_test4").box-content.box-content-short
-
-							.box-small
-								.box-title
-									h3 Test 5
-										span sub title
-										i(id='content_test5-trigger').glyphicon.glyphicon-chevron-up.arrow.pull-right
-								div(id="content_test5").box-content.box-content-short
-
-							.box-small.box-last
-								.box-title
-									h3 Test 6
-										span sub title
-										i(id='content_test6-trigger.').glyphicon.glyphicon-chevron-up.arrow.pull-right
-								div(id="content_test6").box-content.box-content-short
-
-				.status_bar.col-md-10
-
-						.user_imageXS
-						h2 [Prénom] [Nom]
-						
+		include includes/_topbar
+		
