@@ -1,0 +1,38 @@
+{
+  "name": "application_face",
+  "version": "1.0.0",
+  "description": "Application made by simplon-erwann-face and Massacor in order to create an web app to follow their promos",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Massacor/appli_rennes.git"
+  },
+  "keywords": [
+    "pug",
+    "sass",
+    "symfony"
+  ],
+  "author": "simplon-erwann-face Massacor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Massacor/appli_rennes/issues"
+  },
+  "homepage": "https://github.com/Massacor/appli_rennes#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-pug": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "pug": "^2.0.0-beta6",
+    "pug-cli": "^1.0.0-alpha6"
+  }
+}
