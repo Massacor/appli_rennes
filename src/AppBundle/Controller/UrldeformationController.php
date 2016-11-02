@@ -46,8 +46,8 @@ class UrldeformationController extends Controller
     public function newAction(Request $request)
     {
         $urldeformation = new Urldeformation();
-        if (isset($_GET['actid']))
-            $urldeformation->setActivityid($_GET['actid']);
+        if ($request->query->has('actid'))
+            $urldeformation->setActivityid($request->query->get('actid'));
         $form = $this->createForm('AppBundle\Form\UrldeformationType', $urldeformation);
         $form->handleRequest($request);
 
