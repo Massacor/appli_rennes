@@ -46,6 +46,8 @@ class UrldeformationController extends Controller
     public function newAction(Request $request)
     {
         $urldeformation = new Urldeformation();
+        if (isset($_GET['actid']))
+            $urldeformation->setActivityid($_GET['actid']);
         $form = $this->createForm('AppBundle\Form\UrldeformationType', $urldeformation);
         $form->handleRequest($request);
 
@@ -75,7 +77,6 @@ class UrldeformationController extends Controller
             ));
         }
 
-        // TODO set a default value for activity id if called from an activity page
         return $this->render('urldeformation/new.html.twig', array(
             'urldeformation' => $urldeformation,
             'form' => $form->createView(),
