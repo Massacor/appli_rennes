@@ -40,13 +40,12 @@ class UrldeformationController extends Controller
     /**
      * Creates a new Urldeformation entity.
      *
-     * @Route("{progid}/{modid}/{seqid}/{actid}/new/", name="urldeformation_new")
+     * @Route("/new", name="urldeformation_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request, Programmedeformation $progid, Moduledeformation $modid, Sequencedeformation $seqid, Activitedeformation $actid)
+    public function newAction(Request $request)
     {
         $urldeformation = new Urldeformation();
-        $urldeformation->setActivityid($actid->getId());
         $form = $this->createForm('AppBundle\Form\UrldeformationType', $urldeformation);
         $form->handleRequest($request);
 
@@ -55,19 +54,30 @@ class UrldeformationController extends Controller
             $em->persist($urldeformation);
             $em->flush();
 
+            $actid = $urldeformation->getActivityId();
+            $activity = $em->getRepository('AppBundle:Activitedeformation')->findBy(array(
+                "id" => $actid
+            ))[0];
+            $seqid = $activity->getSequenceId();
+            $sequence = $em->getRepository('AppBundle:Sequencedeformation')->findBy(array(
+                "id" => $seqid
+            ))[0];
+            $modid = $sequence->getModuleId()->getId();
+            $progid = $em->getRepository('AppBundle:Linkprogrammemodule')->findBy(array(
+                'moduleid' => $modid
+            ))[0]->getProgrammeid()->getId();
+
             return $this->redirectToRoute('activite_show', array(
-                'progid' => $progid->getId(),
-                'modid' => $modid->getId(),
-                'seqid' => $seqid->getId(),
-                'actid' => $actid->getId()
-                ));
+                'actid' => $actid,
+                'seqid' => $seqid,
+                'modid' => $modid,
+                'progid' => $progid
+            ));
         }
 
+        // TODO set a default value for activity id if called from an activity page
         return $this->render('urldeformation/new.html.twig', array(
             'urldeformation' => $urldeformation,
-            'progid' => $progid->getId(),
-            'modid' => $modid->getId(),
-            'seqid' => $seqid->getId(),
             'form' => $form->createView(),
         ));
     }
